@@ -286,3 +286,5 @@ Remember, this is just the beginning! We encourage you to experiment, adapt, and
 We're also very open to feedback—whether it's pointing out errors, suggesting improvements, or sharing additional insights. Please feel free to submit any issues or ideas through the **Issues tab**.
 
 Thanks for following along, and happy designing! 🚀
+
+Current Commit of IHP-Open-PDK to work with the course: eb1b540c58346cf6259285a38d09b2a04feb344a
