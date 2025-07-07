@@ -290,8 +290,11 @@ We're also very open to feedback—whether it's pointing out errors, suggesting 
 Thanks for following along, and happy designing! 🚀
 
 Current Commit of IHP-Open-PDK to work with the course: eb1b540c58346cf6259285a38d09b2a04feb344a
+<<<<<<< HEAD
 
 
 <p align="center">
   <img src="media/bmftr_en.jpg"  width="300" height="200" />
 </p>
+=======
+>>>>>>> 40e222618b8bb24df992a297feef0bac8f871dd0
