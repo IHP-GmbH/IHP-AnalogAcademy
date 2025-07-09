@@ -1,0 +1,4 @@
+scale 1000 1 0.5
+rnode "Drain2" 0 0 2947 3110 0
+rnode "Drain1" 0 0 2651 3110 0
+rnode "vdd" 0 0 1014 2943 0

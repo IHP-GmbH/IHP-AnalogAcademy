@@ -4,17 +4,17 @@ from pathlib import Path
 
 def get_original_io_order(original_netlist_path):
     io_pins = []
-    subckt_line = ""
 
     with open(original_netlist_path, "r") as f:
         for line in f:
-            if line.strip().startswith("**.subckt"):
-                # Use regex to extract port names
-                match = re.search(r"\*\*\.subckt\s+\S+\s+(.+)", line)
-                if match:
-                    subckt_line = match.group(1).strip()
-                    io_pins = subckt_line.split()
-                break
+            stripped = line.strip()
+            # Look for .subckt line (not commented out)
+            if stripped.startswith(".subckt"):
+                tokens = stripped.split()
+                # tokens[0] = '.subckt', tokens[1] = subckt name, rest are pins
+                if len(tokens) >= 3:
+                    io_pins = tokens[2:]
+                    break
 
     if not io_pins:
         raise ValueError("Could not find IO pins in original schematic")
@@ -38,7 +38,7 @@ def reorder_pex_subckt(pex_path, correct_order):
                 raise ValueError("Port names in PEX netlist don't match original IO pins")
 
             # Create new subckt line with reordered ports
-            reordered_line = ".subckt " + subckt_name + " " + " ".join(correct_order) + "\n"
+            reordered_line = ".subckt " + subckt_name +"_pex"+" " + " ".join(correct_order) + "\n"
             new_lines.append(reordered_line)
             subckt_found = True
         else:

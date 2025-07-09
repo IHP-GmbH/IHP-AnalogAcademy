@@ -15,4 +15,5 @@ modules/module_3_8_bit_SAR_ADC/part_2_digital_comps/bootstrap_switch/python/
 *.out
 *.vcd
 *.npz
+*.log
 

@@ -63,13 +63,14 @@ tclcommand="xschem raw_read $netlist_dir/test_inverter.raw tran"
 }
 C {inverter.sym} 390 -300 0 0 {
 name=x1
+schematic=inverter_pex
 spice_sym_def="
-.subckt inverter Vdd Vin Vout Gnd
+.subckt inverter_pex Vdd Vin Vout Gnd
 X0 Vout Vin Vdd Vdd sg13_lv_pmos ad=0.68p pd=4.68u as=0.68p ps=4.68u w=2u l=0.45u
 X1 Vout Vin Gnd Gnd sg13_lv_nmos ad=0.34p pd=2.68u as=0.34p ps=2.68u w=1u l=0.45u
-C0 Vout Vdd 0.13155f
-C1 Vout Vin 0.10077f
-C2 Vdd Vin 0.14482f
+C0 Vdd Vin 0.14482f
+C1 Vout Vdd 0.13155f
+C2 Vout Vin 0.10077f
 R0 Vin Vin.n0 7.52248
 C3 Vout Gnd 0.39245f
 C4 Vin Gnd 0.64666f

@@ -26,20 +26,20 @@ Reading "ntap1".
 Reading "pmos$1".
 Reading "inverter".
 Extracting inverter into /home/pedersen/projects/IHP-AnalogAcademy/modules/module_3_8_bit_SAR_ADC/part_5_layout/components/inverter_example/pex/pex_output/inverter__inverter/magic_RC/inverter.ext:
-Port: name = Vout is new node 0x56ea21d3d4a0
+Port: name = Vout is new node 0x6202078064b0
 Location is (266, -211); drivepoint (266, -211)
-Port: name = Vin is new node 0x56ea21d41800
+Port: name = Vin is new node 0x62020780a810
 Location is (95, -213); drivepoint (95, -213)
-Port: name = Gnd is new node 0x56ea21ece8e0
+Port: name = Gnd is new node 0x6202079978f0
 Location is (20, -732); drivepoint (20, -732)
-Port: name = Vdd is new node 0x56ea226c2f60
+Port: name = Vdd is new node 0x62020818bf70
 Location is (-205, 318); drivepoint (-205, 318)
 Total Nets: 4
 Nets extracted: 4 (1.000000)
 Nets output: 4 (1.000000)
 Devs merged: 0
 exttospice finished.
-MAGIC succeeded after 0.2051s
+MAGIC succeeded after 0.1993s
 Report DB saved at: ./pex_output/inverter__inverter/magic_RC/inverter_MAGIC_report.rdb.gz
 SPICE netlist saved at: ./pex_output/inverter__inverter/magic_RC/inverter.pex.spice
 * NGSPICE file created from inverter.ext - technology: ihp-sg13g2
@@ -47,9 +47,9 @@ SPICE netlist saved at: ./pex_output/inverter__inverter/magic_RC/inverter.pex.sp
 .subckt inverter Vout Vin Gnd Vdd
 X0 Vout Vin Vdd Vdd sg13_lv_pmos ad=0.68p pd=4.68u as=0.68p ps=4.68u w=2u l=0.45u
 X1 Vout Vin Gnd Gnd sg13_lv_nmos ad=0.34p pd=2.68u as=0.34p ps=2.68u w=1u l=0.45u
-C0 Vout Vdd 0.13155f
-C1 Vout Vin 0.10077f
-C2 Vdd Vin 0.14482f
+C0 Vdd Vin 0.14482f
+C1 Vout Vdd 0.13155f
+C2 Vout Vin 0.10077f
 R0 Vin Vin.n0 7.52248
 C3 Vout Gnd 0.39245f
 C4 Vin Gnd 0.64666f

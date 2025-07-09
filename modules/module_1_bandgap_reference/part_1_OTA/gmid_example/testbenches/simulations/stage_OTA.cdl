@@ -1,0 +1,14 @@
+** sch_path: /home/pedersen/projects/IHP-AnalogAcademy/modules/module_1_bandgap_reference/part_1_OTA/schematic/two_stage_OTA.sch
+.subckt two_stage_OTA vdd iout v+ v- vout vss
+*.PININFO v-:B v+:B vss:B vdd:B iout:B vout:B
+M4 net3 net1 vss vss sg13_lv_nmos l=9.75u w=720n ng=1 m=1
+M3 net1 net1 vss vss sg13_lv_nmos l=9.75u w=720n ng=1 m=1
+M1 net1 v- net2 vdd sg13_lv_pmos l=3.64u w=3.705u ng=1 m=1
+M2 net3 v+ net2 vdd sg13_lv_pmos l=3.64u w=3.705u ng=1 m=1
+M5 net2 iout vdd vdd sg13_lv_pmos l=1.95u w=5.3u ng=1 m=1
+M7 vout iout vdd vdd sg13_lv_pmos l=2.08u w=75u ng=8 m=1
+M6 vout net3 vss vss sg13_lv_nmos l=9.75u w=28.8u ng=4 m=1
+M9 iout iout vdd vdd sg13_lv_pmos l=2.08u w=75u ng=8 m=1
+C2 net3 vout cap_cmim w=22.295e-6 l=22.295e-6 m=1
+.ends
+.end

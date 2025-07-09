@@ -13,11 +13,15 @@ def read_spice_definition(spice_path):
     with open(spice_path, "r") as f:
         lines = f.readlines()
 
-    subckt_line = next((line for line in lines if line.strip().lower().startswith(".subckt")), None)
-    if not subckt_line:
+    subckt_line_index = next((i for i, line in enumerate(lines) if line.strip().lower().startswith(".subckt")), None)
+    if subckt_line_index is None:
         raise ValueError(f"No .subckt line found in SPICE file: {spice_path}")
 
-    subckt_name = subckt_line.strip().split()[1]
+    parts = lines[subckt_line_index].strip().split()
+    subckt_name = parts[1]
+    new_subckt_name = subckt_name
+    parts[1] = new_subckt_name
+    lines[subckt_line_index] = ' '.join(parts) + '\n'
 
     definition_lines = []
     recording = False
@@ -29,14 +33,11 @@ def read_spice_definition(spice_path):
         if line.strip().lower() == ".ends":
             break
 
-    definition_text = '\n'.join(definition_lines)
-    return subckt_name, definition_text
+    return new_subckt_name, '\n'.join(definition_lines)
 
 def find_subckt_location(subckt_name, schematic_file):
     text_content = load_text_file(schematic_file)
-    search_term = subckt_name + '.sym'
-    location = text_content.find(search_term)
-    return location
+    return text_content.find(subckt_name + '.sym')
 
 def find_first_curly_brackets_span(text, start_pos):
     open_pos = text.find('{', start_pos)
@@ -53,29 +54,23 @@ def find_first_curly_brackets_span(text, start_pos):
                 return open_pos, i
     return None, None
 
-def replace_curly_brackets_content(text, start_idx, end_idx, new_content):
+def replace_curly_brackets_content(text, start_idx, end_idx, new_content, subckt_name):
     content = text[start_idx+1:end_idx].strip('\n ')
     lines = content.splitlines()
 
-    name_line_index = None
-    for i, line in enumerate(lines):
-        if line.strip().startswith("name="):
-            name_line_index = i
-            break
-
+    name_line_index = next((i for i, line in enumerate(lines) if line.strip().startswith("name=")), None)
+    schematic_line = "schematic=" + subckt_name
     if name_line_index is None:
         new_lines = ['spice_sym_def="', new_content.strip(), '"'] + lines
     else:
         new_lines = (
             lines[:name_line_index+1] +
+            [schematic_line] +
             ['spice_sym_def="', new_content.strip(), '"'] +
             lines[name_line_index+1:]
         )
 
-    new_block_content = '\n'.join(new_lines)
-    before = text[:start_idx+1]
-    after = text[end_idx:]
-    return before + '\n' + new_block_content + '\n' + after
+    return text[:start_idx+1] + '\n' + '\n'.join(new_lines) + '\n' + text[end_idx:]
 
 def process_pair(spice_path, schematic_path):
     print(f"\nProcessing:\n  SPICE: {spice_path}\n  Schematic: {schematic_path}")
@@ -86,9 +81,14 @@ def process_pair(spice_path, schematic_path):
         print(f"  Error reading spice file: {e}")
         return
 
-    location = find_subckt_location(subckt_name, schematic_path)
+    # If subckt_name ends with '_pex', strip it for schematic search
+    search_subckt_name = subckt_name
+    if subckt_name.endswith("_pex"):
+        search_subckt_name = subckt_name[:-4]
+
+    location = find_subckt_location(search_subckt_name, schematic_path)
     if location == -1:
-        print(f"  '{subckt_name}.sym' not found in schematic file.")
+        print(f"  '{search_subckt_name}.sym' not found in schematic file.")
         return
 
     schematic_content = load_text_file(schematic_path)
@@ -97,51 +97,27 @@ def process_pair(spice_path, schematic_path):
         print("  No matching curly brackets found after .sym device.")
         return
 
-    new_schematic_content = replace_curly_brackets_content(schematic_content, start_idx, end_idx, definition)
+    new_schematic_content = replace_curly_brackets_content(
+        schematic_content, start_idx, end_idx, definition, subckt_name
+    )
 
-    dir_name, base_name = os.path.split(schematic_path)
+    # Save the file in the current working directory (where script is run)
+    base_name = os.path.basename(schematic_path)
     name, ext = os.path.splitext(base_name)
-    new_filename = os.path.join(dir_name, f"{name}_modified{ext}")
+    new_filename = os.path.join(os.getcwd(), f"{name}_pex{ext}")
 
     save_text_file(new_filename, new_schematic_content)
+    
     print(f"  Replacement done and new schematic file saved as:\n    {new_filename}")
 
-
-
 if __name__ == "__main__":
-    schematic = "../inverter_tb.sch"
-    spice_path = "pex_output/inverter__inverter/magic_RC/inverter.pex.spice"  # replace with actual path
+    if len(sys.argv) != 3:
+        print("Usage:\n  python3 script.py <schematic.sch> <spice_file.spice>")
+        sys.exit(1)
 
-    subckt_name, definition = read_spice_definition(spice_path)
+    schematic = sys.argv[1]
+    spice_path = sys.argv[2]
 
-    print(f"Subcircuit name: {subckt_name}")
-    print("Definition:")
-    print(definition)
+    print(f"Starting processing with schematic='{schematic}', spice='{spice_path}'")  # Debug print
 
-    location = find_subckt_location(subckt_name, schematic)
-    if location != -1:
-        print(f"Found '{subckt_name}.sym' in schematic at position: {location}")
-
-        schematic_content = load_text_file(schematic)
-        start_idx, end_idx = find_first_curly_brackets_span(schematic_content, location)
-        if start_idx is not None:
-            print(f"Replacing curly brackets content from {start_idx} to {end_idx}...")
-            new_schematic_content = replace_curly_brackets_content(schematic_content, start_idx, end_idx, definition)
-
-            # Prepare new filename with _pex suffix before extension
-            dir_name, base_name = os.path.split(schematic)
-            name, ext = os.path.splitext(base_name)
-            new_filename = f"{name}_pex{ext}"
-
-            # Ensure xschem/ exists and define full path there
-            xschem_dir = os.path.join(os.getcwd(), "xschem")
-            os.makedirs(xschem_dir, exist_ok=True)
-            xschem_path = os.path.join(xschem_dir, new_filename)
-
-            # Save to xschem/ folder
-            save_text_file(xschem_path, new_schematic_content)
-            print(f"Replacement done. New schematic saved to:\n  {xschem_path}")
-        else:
-            print("No curly brackets block found after .sym line.")
-    else:
-        print(f"'{subckt_name}.sym' not found in schematic.")
+    process_pair(spice_path, schematic)
