@@ -81,7 +81,7 @@ The scripts that was made for generating the LUTs can be found as:
 ### 🔧 Setup Procedure
 
 1. **Clone the Metwatts GMID repository**  
-   Follow the installation instructions provided in the repo.  
+   Follow the installation instructions provided in the repo ([`gmid`](https://github.com/medwatt/gmid))  
    > 💡 It is recommended to use a virtual environment.
 
 2. **Generate Lookup Tables**  
@@ -101,7 +101,7 @@ The scripts that was made for generating the LUTs can be found as:
    ```bash
    jupyter lab _gmid_test.ipynb
    ```
-   This notebook will open a GUI for exploring the GMID lookup tables, which should look like the following:
+   This notebook will open a GUI for exploring the GMID lookup tables, which should look like the following (make sure the paths match yours accordingly):
 
 
 <p align="center"> <img src=".media/gmid.png" width="800" height="400" /> </p>

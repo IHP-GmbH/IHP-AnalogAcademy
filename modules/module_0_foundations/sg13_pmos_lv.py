@@ -1,7 +1,14 @@
+import os
 from mosplot.lookup_table_generator.simulators import NgspiceSimulator, HspiceSimulator
 from mosplot.lookup_table_generator import LookupTableGenerator, TransistorSweep
 # One of `include_paths` or `lib_mappings` must be specified.
 # The rest are optional.
+
+# Read environment variables to build model path
+PDK_ROOT = os.environ["PDK_ROOT"]
+PDK = os.environ["PDK"]
+
+model_path = os.path.join(PDK_ROOT, PDK, "libs.tech/ngspice/models/cornerMOSlv.lib")
 
 ngspice = NgspiceSimulator(
     # Provide path to simulator if simulator is not in system path.
@@ -15,8 +22,8 @@ ngspice = NgspiceSimulator(
 
 
     # Files to include with `.LIB`.
-    lib_mappings = [
-        ("/home/pedersen/IHP-Open-PDK/ihp-sg13g2/libs.tech/ngspice/models/cornerMOSlv.lib", " mos_tt") # Put your own path to the corner lib
+      lib_mappings = [
+    (model_path, "mos_tt")
     ],
 
     # If the transistor is defined inside a subcircuit in
