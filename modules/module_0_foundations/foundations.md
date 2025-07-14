@@ -64,18 +64,46 @@ For a deeper dive into the gm/Id methodology, consider watching this video by Ma
 
 Refer to the next section for instructions on setting up the gm/Id tools.
 
-## Setting Up gm/Id Methodology (Optional)
+### Lookup Table Generation
 
-In the repository, under the module_0 folder, you’ll find a directory called gmid. This directory is based on the repository from Medwatt, which can be accessed at the following link:
+To generate the lookup tables (LUTs) used in this chapter, we utilized resources from the GitHub repository by [medwatt](https://github.com/medwatt). Specifically, the LUT generation was based on his excellent [`gmid`](https://github.com/medwatt/gmid) project, which provides detailed documentation and well-structured scripts for generating lookup tables. Many thanks to medwatt for making this resource available — if you're working on similar tasks, I highly recommend taking a look at the repository!
 
-Repository URL: https://github.com/medwatt/gmid
+The scripts that was made for generating the LUTs can be found as:
 
-Modifications have been made to the Lookup Table (LUT) generator class to ensure compatibility with the IHP Open PDK. As a result, you can easily generate gm/Id LUTs by running:
-```
-python gmid_launcher.py
-```
-This will open a simple terminal-based GUI, allowing you to select which transistor you would like to generate the gm/Id LUT for. You just need to specify the sweeping parameters, and the tool will parse a netlist to Ngspice. The generated LUTs will be saved in a folder named LUTs. From here, you can navigate to the scripting folder and open JupyterLab, where an implemented GUI for viewing the data has been created. NOTE: The LUT data is not provided in the repository since the datasets are quite large. You can refer to the slides over module_1 to see a more graphic explination on how to generate the LUTs.
+- `sg13_nmos_lv.py`
+- `sg13_pmos_lv.py`
+
+> **🔧 REMARK:**  
+> Make sure to update the path to match your naming convention under `lib_mappings` in **both** files.
+
+## 📘 Usage Overview
+
+### 🔧 Setup Procedure
+
+1. **Clone the Metwatts GMID repository**  
+   Follow the installation instructions provided in the repo.  
+   > 💡 It is recommended to use a virtual environment.
+
+2. **Generate Lookup Tables**  
+   Run the following Python script to generate lookup tables:  
+   ```bash
+   python sg13_nmos_lv.py
+   ```
+
+3. **Install Additional Requirements**  
+   Navigate to `module_0_foundations/scripting` and install dependencies:  
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Launch the GMID GUI**  
+   From the same directory, launch the Jupyter notebook:  
+   ```bash
+   jupyter lab _gmid_test.ipynb
+   ```
+   This notebook will open a GUI for exploring the GMID lookup tables, which should look like the following:
 
 
+<p align="center"> <img src=".media/gmid.png" width="800" height="400" /> </p>
 
 
