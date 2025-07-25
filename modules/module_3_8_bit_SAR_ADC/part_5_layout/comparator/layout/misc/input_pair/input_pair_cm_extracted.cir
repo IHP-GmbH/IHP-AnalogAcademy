@@ -1,0 +1,9 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 14/07/2025 15:44
+
+.SUBCKT input_pair_cm vdd Drain2 Drain1 top
+M$1 top \$9 Drain1 \$2 sg13_lv_pmos L=0.2u W=32u AS=8.48p AD=8.48p PS=52.24u
++ PD=52.24u
+M$3 top \$8 Drain2 \$2 sg13_lv_pmos L=0.2u W=32u AS=8.48p AD=8.48p PS=52.24u
++ PD=52.24u
+R$17 \$2 vdd ntap1 A=15.376p P=99.2u
+.ENDS input_pair_cm
