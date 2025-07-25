@@ -14,7 +14,7 @@ KPEX_MAGIC_EXE="$HOME/.local/bin/magic"
 # Example: /usr/local/bin/magic or ~/.local/bin/magic
 
 #Path to symbol
-SYM_DIR="../xschem_pre_layout/schematic/DIFF_COMPARATOR.sym"       # Asuming you have a symbol for the DUT
+SYM_DIR="./DIFF_COMPARATOR.sym"       # Asuming you have a symbol for the DUT
 
 LAYOUT_DIR="../layout/DIFF_COMPARATOR.gds"        # Path to the GDS file
 

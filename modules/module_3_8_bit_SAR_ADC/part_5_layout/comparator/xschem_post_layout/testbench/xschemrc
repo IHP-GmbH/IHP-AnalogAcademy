@@ -14,6 +14,5 @@ source $::env(PDK_ROOT)/$::env(PDK)/libs.tech/xschem/xschemrc
 
 
 #### Add custom libraries (directories with .lib files)
-append XSCHEM_LIBRARY_PATH :$PDK_ROOT/ihp-sg13g2/libs.tech/xschem
-append XSCHEM_LIBRARY_PATH :../schematic/
+append XSCHEM_LIBRARY_PATH :../../pex/xschem_pex_symbol/
 

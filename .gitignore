@@ -15,7 +15,10 @@ modules/module_0_foundations/gmid_env
 *.npy
 *.so
 *.out
+*.nodes
+*.sim
 *.vcd
 *.npz
 *.log
+
 

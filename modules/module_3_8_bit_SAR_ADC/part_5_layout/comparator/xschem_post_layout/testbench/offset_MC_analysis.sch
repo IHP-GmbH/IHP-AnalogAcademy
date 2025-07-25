@@ -136,7 +136,7 @@ value="
 .endc
 
 "}
-C {/home/pedersen/projects/IHP-AnalogAcademy/modules/module_3_8_bit_SAR_ADC/part_5_layout/comparator/pex/xschem_pex_symbol/DIFF_COMPARATOR.sym} 270 -220 0 0 {name=x1
+C {DIFF_COMPARATOR.sym} 270 -220 0 0 {name=x1
 schematic=DIFF_COMPARATOR_pex
 spice_sym_def=
 "
@@ -154,43 +154,43 @@ X9 gnd clk a_944_1911# gnd sg13_lv_nmos ad=0.76p pd=4.38u as=1.44p ps=4.72u w=4u
 X10 out- a_687_2445# vdd vdd sg13_lv_pmos ad=1.36p pd=8.68u as=0.76p ps=4.38u w=4u l=0.2u M=2
 X11 out+ a_944_1911# gnd gnd sg13_lv_nmos ad=0.68p pd=4.68u as=0.38p ps=2.38u w=2u l=0.2u M=2
 X12 a_1245_3300# clk a_1752_817# vdd sg13_lv_pmos ad=1.53p pd=9.68u as=0.855p ps=4.88u w=4.5u l=0.3u M=4
-C0 a_1752_817# a_1245_3300# 3.76533f
-C1 a_944_1911# a_1245_3300# 8.04522f
-C2 out- out+ 0.0933f
-C3 clk a_1245_3300# 0.44782f
-C4 w_805_2869# vdd 0.1537f
-C5 V+ a_1245_3300# 0.76573f
-C6 V- a_1245_3300# 0.94179f
-C7 a_1245_3300# vdd 2.55093f
-C8 a_944_1911# a_1752_817# 0.0558f
-C9 a_1245_3300# a_687_2445# 11.3534f
-C10 a_1752_817# vbias 2.28993f
-C11 a_1752_817# clk 0.5025f
-C12 a_944_1911# clk 0.24743f
-C13 V+ a_944_1911# 1.08178f
-C14 V- a_944_1911# 0.46901f
-C15 a_1245_3300# out+ 0.36924f
-C16 clk vbias 0.19878f
-C17 a_1245_3300# out- 0.36795f
-C18 a_1752_817# vdd 7.11146f
-C19 a_1752_817# a_687_2445# 0.04531f
-C20 a_944_1911# vdd 1.10862f
-C21 a_944_1911# a_687_2445# 2.24936f
-C22 vbias vdd 2.83964f
-C23 clk vdd 2.98842f
-C24 V- V+ 1.61045f
-C25 clk a_687_2445# 0.23833f
-C26 V+ vdd 4.08205f
-C27 V- vdd 4.06121f
-C28 V+ a_687_2445# 0.13025f
-C29 V- a_687_2445# 0.78527f
-C30 a_944_1911# out+ 0.80028f
-C31 a_944_1911# out- 0.61161f
-C32 a_687_2445# vdd 1.31156f
-C33 vdd out+ 1.84773f
-C34 a_687_2445# out+ 0.69286f
-C35 vdd out- 1.84304f
-C36 a_687_2445# out- 0.89453f
+C0 a_944_1911# V- 0.46901f
+C1 a_944_1911# vdd 1.10862f
+C2 a_687_2445# V- 0.78527f
+C3 a_687_2445# vdd 1.31156f
+C4 clk a_1245_3300# 0.44782f
+C5 out+ a_1245_3300# 0.36924f
+C6 out- a_1245_3300# 0.36795f
+C7 V+ a_1245_3300# 0.76573f
+C8 vdd a_1752_817# 7.11146f
+C9 clk a_944_1911# 0.24743f
+C10 clk a_687_2445# 0.23833f
+C11 out+ a_944_1911# 0.80028f
+C12 out+ a_687_2445# 0.69286f
+C13 a_944_1911# out- 0.61161f
+C14 a_944_1911# V+ 1.08178f
+C15 a_687_2445# out- 0.89453f
+C16 a_687_2445# V+ 0.13025f
+C17 clk a_1752_817# 0.5025f
+C18 vdd V- 4.06121f
+C19 clk vdd 2.98842f
+C20 out+ vdd 1.84773f
+C21 a_1752_817# vbias 2.28993f
+C22 V- V+ 1.61045f
+C23 vdd out- 1.84304f
+C24 vdd V+ 4.08205f
+C25 a_944_1911# a_1245_3300# 8.04522f
+C26 a_687_2445# a_1245_3300# 11.3534f
+C27 a_1752_817# a_1245_3300# 3.76533f
+C28 out+ out- 0.0933f
+C29 a_687_2445# a_944_1911# 2.24936f
+C30 vdd vbias 2.83964f
+C31 a_944_1911# a_1752_817# 0.0558f
+C32 a_687_2445# a_1752_817# 0.04531f
+C33 clk vbias 0.19878f
+C34 V- a_1245_3300# 0.94179f
+C35 vdd a_1245_3300# 2.55093f
+C36 vdd w_805_2869# 0.1537f
 R0 V+.n6 V+.n0 17.1875
 R1 V+.n6 V+.n5 16.5321
 R2 V+.n2 V+.n1 15.8046
