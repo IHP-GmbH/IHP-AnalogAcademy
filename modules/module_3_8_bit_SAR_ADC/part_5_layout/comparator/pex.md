@@ -1,4 +1,4 @@
-Parasitic Extraction (PEX)
+# Parasitic Extraction (PEX)
 
 Parasitic extraction is an important step in the analog design flow, kind of like EM simulation. After you finish the physical layout, this step analyzes how unintended parasitic resistances and capacitances affect your circuit’s behavior.
 
