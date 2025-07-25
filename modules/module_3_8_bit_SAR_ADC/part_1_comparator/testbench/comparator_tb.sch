@@ -12,7 +12,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-1e-07
+x1=0
 
 divx=5
 subdivx=4
@@ -24,10 +24,10 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=9e-07
+x2=1e-06
 color=4
 node=clk}
-B 2 20 -885 820 -485 {flags=graph
+B 2 20 -855 820 -455 {flags=graph
 y1=0.59
 y2=0.61
 ypos1=0
@@ -35,7 +35,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-1e-07
+x1=0
 
 divx=5
 subdivx=4
@@ -47,7 +47,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=9e-07
+x2=1e-06
 
 
 color=4
@@ -60,7 +60,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-1e-07
+x1=0
 
 divx=5
 subdivx=4
@@ -72,20 +72,20 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=9e-07
+x2=1e-06
 
 
 color=4
 node=vout}
 B 2 850 -805 1650 -405 {flags=graph
-y1=-0.7005027
-y2=1.1959773
+y1=1.1
+y2=1.2
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-1e-07
+x1=0
 
 divx=5
 subdivx=4
@@ -97,7 +97,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=9e-07
+x2=1e-06
 
 color=4
 node=outp}
@@ -109,7 +109,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-1e-07
+x1=0
 
 divx=5
 subdivx=4
@@ -121,7 +121,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=9e-07
+x2=1e-06
 
 
 color=4
@@ -166,8 +166,6 @@ N -610 -80 -570 -80 {
 lab=GND}
 N -540 -100 -540 -80 {
 lab=GND}
-N 80 -300 80 -280 {
-lab=vinp}
 N 60 -280 80 -280 {
 lab=vinp}
 N 80 -160 80 -140 {
@@ -176,37 +174,44 @@ N 60 -160 80 -160 {
 lab=vbias}
 N 80 -80 80 -60 {
 lab=GND}
-N 80 -380 80 -360 {
-lab=GND}
 N 460 -150 460 -140 {
 lab=GND}
 N 460 -300 460 -290 {
 lab=GND}
-C {devices/code_shown.sym} -675 -490 0 0 {name=MODEL only_toplevel=false
+N 80 -300 80 -280 {
+lab=vinp}
+N 80 -380 80 -360 {
+lab=GND}
+C {devices/code_shown.sym} -775 -550 0 0 {name=MODEL only_toplevel=false
 format="tcleval( @value )"
 value="
 .lib cornerMOSlv.lib mos_tt
 "}
-C {devices/code_shown.sym} -685 -780 0 0 {name=NGSPICE only_toplevel=false 
+C {devices/code_shown.sym} -865 -1040 0 0 {name=NGSPICE only_toplevel=false 
 value="
+.include comparator_tb.save
+
+.param temp=27
+.param clock = 100e6       ; 100 MHz clock
+.param period = \{1/clock\}
+.param num_cycles = 100
+.param tr = \{num_cycles * period\}
+
 .control
+save all
+* Operating point simulation
 op
-.param clock = 100e6    ; 100 MHz clock
-.param period = 1 / clock
-.param num_cycles = 100  ; number of evaluation cycles
-.param tr = num_cycles * period
+write comparator_tb.raw
+set appendwrite
+
+* Transient analysis
 tran 500p 1u
-.save all
-let vindiff = (v(vinp))-(v(vbias))
+let vindiff = v(vinp) - v(vbias)
 let clk = v(clk)
-let vout = (v(outp))-(v(outm))
-write output_file.raw
+let vout = v(outp) - v(outm)
+write comparator_tb.raw
 .endc
 "}
-C {launcher.sym} -160 -855 0 0 {name=h5
-descr="load waves" 
-tclcommand="xschem raw_read $netlist_dir/output_file.raw tran"
-}
 C {vsource.sym} -610 -130 0 0 {name=V3 value="DC 1.2"}
 C {vsource.sym} -540 -130 0 0 {name=V4 value="DC 0.6"}
 C {gnd.sym} -310 -70 0 0 {name=l1 lab=GND}
@@ -250,3 +255,36 @@ device="ceramic capacitor"}
 C {gnd.sym} 460 -140 0 0 {name=l6 lab=GND}
 C {gnd.sym} 460 -300 2 0 {name=l7 lab=GND}
 C {dynamic_comparator.sym} 270 -220 0 0 {name=x1}
+C {sg13g2_pr/annotate_fet_params.sym} -240 -1070 0 0 {name=annot1 ref=M3}
+C {devices/launcher.sym} -210 -810 0 0 {name=h1
+descr="OP annotate" 
+tclcommand="xschem annotate_op"
+}
+C {launcher.sym} -210 -850 0 0 {name=h5
+descr="load waves" 
+tclcommand="xschem raw_read $netlist_dir/comparator_tb.raw tran"
+}
+C {launcher.sym} -210 -765 0 0 {name=h2
+descr=SimulateNGSPICE
+tclcommand="
+# Setup the default simulation commands if not already set up
+# for example by already launched simulations.
+set_sim_defaults
+puts $sim(spice,1,cmd) 
+
+# Change the Xyce command. In the spice category there are currently
+# 5 commands (0, 1, 2, 3, 4). Command 3 is the Xyce batch
+# you can get the number by querying $sim(spice,n)
+set sim(spice,1,cmd) \{ngspice  \\"$N\\" -a\}
+
+# change the simulator to be used (Xyce)
+set sim(spice,default) 0
+
+# Create FET and BIP .save file
+mkdir -p $netlist_dir
+write_data [save_params] $netlist_dir/[file rootname [file tail [xschem get current_name]]].save
+
+# run netlist and simulation
+xschem netlist
+simulate
+"}

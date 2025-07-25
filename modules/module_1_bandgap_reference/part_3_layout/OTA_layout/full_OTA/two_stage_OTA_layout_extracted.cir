@@ -1,4 +1,4 @@
-* Extracted by KLayout with SG13G2 LVS runset on : 28/03/2025 08:06
+* Extracted by KLayout with SG13G2 LVS runset on : 17/07/2025 11:31
 
 .SUBCKT two_stage_OTA_layout vss vdd dn3 iout vout dn2 v+ v\x2d vss$1 dn4
 M$1 vss dn3 dn3 vss sg13_lv_nmos L=9.75u W=0.72u AS=0.2448p AD=0.2448p PS=2.12u

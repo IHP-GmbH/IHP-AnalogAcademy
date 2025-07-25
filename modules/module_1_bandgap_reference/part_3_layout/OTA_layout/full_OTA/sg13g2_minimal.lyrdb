@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>design rules: sg13g2_minimal | layout cell: two_stage_OTA_layout</description>
+ <original-file>two_stage_OTA_layout.gds</original-file>
+ <generator>drc: script='/home/pedersen/IHP-Open-PDK/ihp-sg13g2/libs.tech/klayout/tech/drc/sg13g2_minimal.lydrc'</generator>
+ <top-cell>two_stage_OTA_layout</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>Act.a</name>
+   <description>Min. Activ width = 0.15</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Act.b</name>
+   <description>Min. Activ space or notch = 0.21</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>AFil.g/g1</name>
+   <description>Global Activ density [%] = 35.00 .. 55.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>AFil.g2/g3</name>
+   <description>Activ coverage ratio for any 800 x 800 µm² chip area [%] = 25.00 .. 65.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TGO.f</name>
+   <description>Min. ThickGateOx width = 0.86</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Gat.a</name>
+   <description>Min. GatPoly width = 0.13</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Gat.b</name>
+   <description>Min. GatPoly space or notch = 0.18</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Gat.d</name>
+   <description>Min. GatPoly space to Activ = 0.07</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>GFil.g</name>
+   <description>Min. global GatPoly density [%] = 15.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Cnt.a</name>
+   <description>Min. and max. Cont width = 0.16</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Cnt.b</name>
+   <description>Min. Cont space = 0.18</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M1.a</name>
+   <description>Min. Metal1 width = 0.16</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M1.b</name>
+   <description>Min. Metal1 space or notch = 0.18</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M1.j/k</name>
+   <description>Global Metal1 density [%] = 35.0 .. 60.0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M2.a</name>
+   <description>Min. Metal2 width = 0.20</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M2.b</name>
+   <description>Min. Metal2 space or notch = 0.21</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M2.j/k</name>
+   <description>Global Metal2 density [%] = 35.00 .. 60.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M3.a</name>
+   <description>Min. Metal3 width = 0.20</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M3.b</name>
+   <description>Min. Metal3 space or notch = 0.21</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M3.j/k</name>
+   <description>Global Metal3 density [%] = 35.00 .. 60.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M4.a</name>
+   <description>Min. Metal4 width = 0.20</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M4.b</name>
+   <description>Min. Metal4 space or notch = 0.21</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M4.j/k</name>
+   <description>Global Metal4 density [%] = 35.00 .. 60.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M5.a</name>
+   <description>Min. Metal5 width = 0.20</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M5.b</name>
+   <description>Min. Metal5 space or notch = 0.21</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M5.j/k</name>
+   <description>Global Metal5 density [%] = 35.00 .. 60.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M1Fil.h/k</name>
+   <description>Metal1 and Metal1:filler coverage ratio for any 800 x 800 µm² chip area [%] = 25.00 .. 75.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M2Fil.h/k</name>
+   <description>Metal2 and Metal2:filler coverage ratio for any 800 x 800 µm² chip area [%] = 25.00 .. 75.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M3Fil.h/k</name>
+   <description>Metal3 and Metal3:filler coverage ratio for any 800 x 800 µm² chip area [%] = 25.00 .. 75.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M4Fil.h/k</name>
+   <description>Metal4 and Metal4:filler coverage ratio for any 800 x 800 µm² chip area [%] = 25.00 .. 75.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>M5Fil.h/k</name>
+   <description>Metal5 and Metal5:filler coverage ratio for any 800 x 800 µm² chip area [%] = 25.00 .. 75.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>V1.a</name>
+   <description>Min. and max. Via1 width = 0.19</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>V1.b</name>
+   <description>Min. Via1 space = 0.22</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>V2.a</name>
+   <description>Min. and max. Via2 width = 0.19</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>V2.b</name>
+   <description>Min. Via2 space = 0.22</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>V3.a</name>
+   <description>Min. and max. Via3 width = 0.19</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>V3.b</name>
+   <description>Min. Via3 space = 0.22</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>V4.a</name>
+   <description>Min. and max. Via4 width = 0.19</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>V4.b</name>
+   <description>Min. Via4 space = 0.22</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TV1.a</name>
+   <description>Min. and max. TopVia1 width = 0.42</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TV1.b</name>
+   <description>Min. TopVia1 space = 0.42</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TM1.a</name>
+   <description>Min. TopMetal1 width = 1.64</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TM1.b</name>
+   <description>Min. TopMetal1 space or notch = 1.64</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TM1.c/d</name>
+   <description>Global TopMetal1 density [%] = 25.00 .. 70.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TV2.a</name>
+   <description>Min. and max. TopVia2 width = 0.90</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TV2.b</name>
+   <description>Min. TopVia2 space = 1.06</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TM2.a</name>
+   <description>Min. TopMetal2 width = 2.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TM2.b</name>
+   <description>Min. TopMetal2 space or notch = 2.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>TM2.c/d</name>
+   <description>Global TopMetal2 density [%] = 25.00 .. 70.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pas.a</name>
+   <description>Min. Passiv width = 2.10</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pas.b</name>
+   <description>Min. Passiv space or notch = 3.50</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.a</name>
+   <description>Min. Activ enclosure of Activ:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.b</name>
+   <description>Min. GatPoly enclosure of GatPoly:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.e</name>
+   <description>Min. Metal1 enclosure of Metal1:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.f.M2</name>
+   <description>Min. Metal2 enclosure of Metal2:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.f.M3</name>
+   <description>Min. Metal3 enclosure of Metal3:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.f.M4</name>
+   <description>Min. Metal4 enclosure of Metal4:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.f.M5</name>
+   <description>Min. Metal5 enclosure of Metal5:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.g</name>
+   <description>Min. TopMetal1 enclosure of TopMetal1:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>Pin.h</name>
+   <description>Min. TopMetal2 enclosure of TopMetal2:pin = 0.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>LBE.a</name>
+   <description>Min. LBE width = 100.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>LBE.b</name>
+   <description>Max. LBE width = 1500.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>LBE.b1</name>
+   <description>Max. LBE area (µm²) = 250000.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>LBE.c</name>
+   <description>Min. LBE space or notch = 100.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>LBE.d</name>
+   <description>Min. LBE space to inner edge of EdgeSeal = 150.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>LBE.h</name>
+   <description>No LBE ring allowed</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>LBE.i</name>
+   <description>Max. global LBE density [%] = 20.00</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.BiWind</name>
+   <description>Forbidden drawn layer BiWind on GDS layer 3/0 = 3/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.PEmWind</name>
+   <description>Forbidden drawn layer PEmWind on GDS layer 11/0 = 11/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.BasPoly</name>
+   <description>Forbidden drawn layer BasPoly on GDS layer 13/0 = 13/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.DeepCo</name>
+   <description>Forbidden drawn layer DeepCo on GDS layer 35/0 = 35/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.PEmPoly</name>
+   <description>Forbidden drawn layer PEmPoly on GDS layer 53/0 = 53/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.EmPoly</name>
+   <description>Forbidden gen./drawn layer EmPoly on GDS layer 53/0 = 53/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.LDMOS</name>
+   <description>Forbidden drawn layer LDMOS on GDS layer 57/0 = 57/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.PBiWind</name>
+   <description>Forbidden drawn layer PBiWind on GDS layer 58/0 = 58/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.Flash</name>
+   <description>Forbidden drawn layer Flash on GDS layer 71/0 = 71/0</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>forbidden.ColWind</name>
+   <description>Forbidden drawn layer ColWind on GDS layer 139/0 = 139/0</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>two_stage_OTA_layout</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+  <item>
+   <tags/>
+   <category>'M1.b'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>edge-pair: (59.965,6.005;69.375,6.005)|(69.375,6.13;59.965,6.13)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M1.b'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>edge-pair: (59.835,6.005;69.505,6.005)|(69.375,6.13;59.965,6.13)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M1.j/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M2.b'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>edge-pair: (59.965,6.005;69.375,6.005)|(69.375,6.13;59.965,6.13)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M2.b'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>edge-pair: (59.796,6.005;69.375,6.005)|(69.375,6.13;59.965,6.13)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M2.j/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M3.j/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M4.j/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M5.j/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M1Fil.h/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M2Fil.h/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M3Fil.h/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M4Fil.h/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'M5Fil.h/k'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'TM1.c/d'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'TM2.c/d'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (0.875,-31.715;0.875,7.38;70.515,7.38;70.515,-31.715)</value>
+   </values>
+  </item>
+  <item>
+   <tags/>
+   <category>'Pin.f.M2'</category>
+   <cell>two_stage_OTA_layout</cell>
+   <visited>false</visited>
+   <multiplicity>1</multiplicity>
+   <comment/>
+   <image/>
+   <values>
+    <value>polygon: (27.925,3.955;27.925,4.285;27.985,4.285;27.985,3.955)</value>
+   </values>
+  </item>
+ </items>
+</report-database>

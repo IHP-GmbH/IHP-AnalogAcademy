@@ -1,9 +1,0 @@
-scale 1000 1 0.5
-rnode "Vdd" 0 -0 -205 318 0
-rnode "ntap1_0.well" 0 0 -63 345 0
-resist "ntap1_0.well" "Vdd" 8.51657
-rnode "Gnd" 0 0 20 -732 0
-rnode "Vin.n0" 0 0 111 -158 0
-rnode "Vin" 0 0 95 -213 0
-resist "Vin" "Vin.n0" 7.52198
-rnode "Vout" 0 0 266 -211 0
