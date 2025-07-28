@@ -1,0 +1,64 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 21/06/2025 22:25
+
+.SUBCKT full_bandgap vdd
+M$1 \$2 \$319 \$319 \$1 sg13_lv_nmos L=5u W=21u AS=4.38375p AD=4.38375p
++ PS=26.965u PD=26.965u
+M$9 \$2 \$285 \$303 \$1 sg13_lv_nmos L=5u W=7.14u AS=1.62435p AD=1.62435p
++ PS=10.745u PD=10.745u
+M$13 \$2 \$303 \$371 \$1 sg13_lv_nmos L=10u W=0.15u AS=0.1005p AD=0.1005p
++ PS=1.34u PD=1.34u
+M$14 \$2 \$339 \$339 \$1 sg13_lv_nmos L=9.75u W=0.72u AS=0.2448p AD=0.2448p
++ PS=2.12u PD=2.12u
+M$15 \$2 \$5 \$118 \$1 sg13_lv_nmos L=9.75u W=28.8u AS=6.552p AD=6.552p
++ PS=37.82u PD=37.82u
+M$19 \$2 \$339 \$5 \$1 sg13_lv_nmos L=9.75u W=0.72u AS=0.2448p AD=0.2448p
++ PS=2.12u PD=2.12u
+M$20 vdd \$118 \$284 \$281 sg13_lv_pmos L=5u W=16u AS=3.34p AD=3.34p PS=21.34u
++ PD=21.34u
+M$28 vdd \$313 \$118 \$286 sg13_lv_pmos L=2.08u W=75u AS=15.65625p AD=15.65625p
++ PS=87.715u PD=87.715u
+M$36 vdd \$118 \$285 \$281 sg13_lv_pmos L=5u W=15u AS=3.13125p AD=3.13125p
++ PS=20.215u PD=20.215u
+M$44 vdd \$118 \$303 \$281 sg13_lv_pmos L=5u W=15u AS=3.13125p AD=3.13125p
++ PS=20.215u PD=20.215u
+M$52 \$303 \$4 vdd \$343 sg13_lv_pmos L=4u W=0.2u AS=0.104p AD=0.104p PS=1.34u
++ PD=1.34u
+M$53 vdd \$313 \$315 \$286 sg13_lv_pmos L=2.08u W=18.75u AS=4.96875p AD=3.5625p
++ PS=29.185u PD=19.51u
+M$55 vdd \$313 \$316 \$286 sg13_lv_pmos L=2.08u W=18.75u AS=3.5625p AD=3.5625p
++ PS=19.51u PD=19.51u
+M$57 vdd \$313 \$317 \$286 sg13_lv_pmos L=2.08u W=18.75u AS=3.5625p AD=3.5625p
++ PS=19.51u PD=19.51u
+M$59 vdd \$313 \$318 \$286 sg13_lv_pmos L=2.08u W=18.75u AS=3.5625p AD=4.96875p
++ PS=19.51u PD=29.185u
+M$61 vdd vdd \$327 \$348 sg13_lv_pmos L=3.7u W=14.56u AS=4.9504p AD=4.9504p
++ PS=31.84u PD=31.84u
+M$62 \$327 \$303 \$339 \$348 sg13_lv_pmos L=3.7u W=7.28u AS=2.4752p AD=2.4752p
++ PS=15.92u PD=15.92u
+M$63 \$339 vdd vdd \$348 sg13_lv_pmos L=3.7u W=7.28u AS=2.4752p AD=2.4752p
++ PS=15.92u PD=15.92u
+M$65 \$327 \$285 \$5 \$348 sg13_lv_pmos L=3.7u W=7.28u AS=2.4752p AD=2.4752p
++ PS=15.92u PD=15.92u
+M$66 \$5 vdd vdd \$348 sg13_lv_pmos L=3.7u W=7.28u AS=2.4752p AD=2.4752p
++ PS=15.92u PD=15.92u
+M$67 \$327 \$323 vdd \$324 sg13_lv_pmos L=1.95u W=5.3u AS=1.802p AD=1.802p
++ PS=11.28u PD=11.28u
+M$68 vdd \$371 \$371 \$355 sg13_lv_pmos L=1u W=1u AS=0.34p AD=0.34p PS=3.36u
++ PD=3.36u
+M$69 vdd \$371 \$4 \$355 sg13_lv_pmos L=1u W=1u AS=0.34p AD=0.34p PS=3.36u
++ PD=3.36u
+R$78 \$2 \$326 rppd w=3u l=38.65u ps=0 b=0 m=1
+R$79 \$326 \$322 rppd w=0.5u l=38.65u ps=0 b=0 m=1
+R$81 \$285 \$326 rppd w=0.5u l=115.95u ps=0 b=0 m=1
+R$87 \$319 \$285 rppd w=0.5u l=193.25u ps=0 b=0 m=1
+R$94 \$284 \$2 rppd w=0.71u l=270.55u ps=0 b=0 m=1
+C$95 \$4 \$2 cap_cmim w=18.2u l=18.2u A=331.24p P=72.8u m=1
+C$96 \$5 \$118 cap_cmim w=22.29u l=22.29u A=496.8441p P=89.16u m=1
+R$97 \$281 vdd ntap1 A=80.0064p P=222.24u
+R$98 \$286 vdd ntap1 A=65.2608p P=181.28u
+R$99 \$324 vdd ntap1 A=20.4264p P=56.74u
+R$100 \$343 vdd ntap1 A=12.9024p P=35.84u
+R$101 \$348 vdd ntap1 A=33.0912p P=183.84u
+R$102 \$355 vdd ntap1 A=20.988p P=58.3u
+R$103 \$1 \$2 ptap1 A=186.85856p P=633.696u
+.ENDS full_bandgap
