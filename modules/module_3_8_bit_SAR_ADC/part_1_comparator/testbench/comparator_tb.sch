@@ -12,7 +12,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=0
+x1=4.0396485e-08
 
 divx=5
 subdivx=4
@@ -24,7 +24,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=1e-06
+x2=4.0503685e-08
 color=4
 node=clk}
 B 2 20 -855 820 -455 {flags=graph
@@ -35,7 +35,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=0
+x1=4.0396485e-08
 
 divx=5
 subdivx=4
@@ -47,7 +47,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=1e-06
+x2=4.0503685e-08
 
 
 color=4
@@ -60,7 +60,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=0
+x1=4.0396485e-08
 
 divx=5
 subdivx=4
@@ -72,20 +72,19 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=1e-06
+x2=4.0503685e-08
 
 
 color=4
 node=vout}
 B 2 850 -805 1650 -405 {flags=graph
-y1=1.1
-y2=1.2
+y1=-0.13480066
+y2=1.3283316
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=0
 
 divx=5
 subdivx=4
@@ -97,10 +96,13 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=1e-06
 
 color=4
-node=outp}
+node=outp
+x2=4.0503685e-08
+x1=4.0396485e-08
+hcursor1_y=0.13669334
+hcursor2_y=1.0706523}
 B 2 850 -395 1650 5 {flags=graph
 y1=0.24502661
 y2=1.4615386
@@ -109,7 +111,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=0
+x1=4.0396485e-08
 
 divx=5
 subdivx=4
@@ -121,7 +123,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=1e-06
+x2=4.0503685e-08
 
 
 color=4
@@ -182,12 +184,12 @@ N 80 -300 80 -280 {
 lab=vinp}
 N 80 -380 80 -360 {
 lab=GND}
-C {devices/code_shown.sym} -775 -550 0 0 {name=MODEL only_toplevel=false
+C {devices/code_shown.sym} -1305 -680 0 0 {name=MODEL only_toplevel=false
 format="tcleval( @value )"
 value="
 .lib cornerMOSlv.lib mos_tt
 "}
-C {devices/code_shown.sym} -865 -1040 0 0 {name=NGSPICE only_toplevel=false 
+C {devices/code_shown.sym} -1325 -1180 0 0 {name=NGSPICE only_toplevel=false 
 value="
 .param temp=27
 .param clock = 100e6       ; 100 MHz clock
@@ -203,10 +205,15 @@ write comparator_tb.raw
 set appendwrite
 
 * Transient analysis
+.options meas_step_max=1e-10
 tran 500p 1u
 let vindiff = v(vinp) - v(vbias)
 let clk = v(clk)
 let vout = v(outp) - v(outm)
+
+meas TRAN rise_time TRIG v(outp) VAL=0.12  TD=9n RISE=4 TARG v(outp) VAL=1.08 TD=9n RISE=4
+meas TRAN fall_time TRIG v(outp) VAL=1.08  TD=9n RISE=4 TARG v(outp) VAL=0.12 TD=9n RISE=4
+
 write comparator_tb.raw
 .endc
 "}
@@ -261,7 +268,7 @@ C {launcher.sym} -210 -850 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/comparator_tb.raw tran"
 }
-C {launcher.sym} -210 -765 0 0 {name=h2
+C {launcher.sym} -210 -775 0 0 {name=h2
 descr=SimulateNGSPICE
 tclcommand="
 # Setup the default simulation commands if not already set up
