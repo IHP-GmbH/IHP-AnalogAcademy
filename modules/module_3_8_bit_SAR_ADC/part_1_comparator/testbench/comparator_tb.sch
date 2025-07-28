@@ -189,8 +189,6 @@ value="
 "}
 C {devices/code_shown.sym} -865 -1040 0 0 {name=NGSPICE only_toplevel=false 
 value="
-.include comparator_tb.save
-
 .param temp=27
 .param clock = 100e6       ; 100 MHz clock
 .param period = \{1/clock\}
@@ -255,7 +253,6 @@ device="ceramic capacitor"}
 C {gnd.sym} 460 -140 0 0 {name=l6 lab=GND}
 C {gnd.sym} 460 -300 2 0 {name=l7 lab=GND}
 C {dynamic_comparator.sym} 270 -220 0 0 {name=x1}
-C {sg13g2_pr/annotate_fet_params.sym} -240 -1070 0 0 {name=annot1 ref=M3}
 C {devices/launcher.sym} -210 -810 0 0 {name=h1
 descr="OP annotate" 
 tclcommand="xschem annotate_op"
