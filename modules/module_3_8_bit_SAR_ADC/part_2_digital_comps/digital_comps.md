@@ -308,7 +308,6 @@ You are encouraged to experiment with the input signals, change timings, and ver
 
 ## Bootstrap - Switch
 
-Explain the function of bootstrap switch
 
 In this design the bootstrap switch that was used is a modification of the one seen below:
 <p align="center"> 
@@ -502,3 +501,4 @@ After simulation, the results should resemble the following:
 </p>
 
 As observed, when the control signal is high, the output is grounded; when low, it passes Vref.
+
