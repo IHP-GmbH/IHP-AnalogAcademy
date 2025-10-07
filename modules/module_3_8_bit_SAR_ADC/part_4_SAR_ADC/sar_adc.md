@@ -11,7 +11,7 @@ Before diving into the full ADC schematic, it's essential to check whether the S
 
 
 ├── SAR_ADC_tb.sch
-
+├── sar_adc_tutorial.sch
 ├── simulations
 
 │   └── sar_logic.so
@@ -167,7 +167,7 @@ write sar_adc_test.raw
     - `.endc` marks the end of the control block, completing the simulation setup.
 
 
-## Running the Simulation
+## Running the Simulation (sar_adc_tutorial.sch)
 
 Below, the clock waveforms are shown. As seen, the sampling phase ends when `clk_samp` goes low, which then triggers the comparator. This firing of the comparator generates a rising edge on `clk_algo`, initiating the SAR conversion. Since the `reset (rst)` signal is connected to the sampling clock and `Enable (En)` is tied to `Vdd` (i.e., always logic high), the SAR logic responds to the `clk_algo` signal (the output of the NAND gate) and begins the bit-wise comparison process.
 
@@ -191,7 +191,7 @@ This confirms that the SAR conversion is functioning correctly.
 
 ---
 
-## Further Analysis
+## Further Analysis (SAR_ADC_tb.sch)
 
 At this point, we have a working SAR ADC, so the primary tutorial goal is achieved. However, we will now extend the analysis by extracting the output and post-processing it in Python to recover the ADC's differential input waveform.
 
@@ -337,3 +337,4 @@ And the reconstructed output from the ideal DAC will appear as:
 ## Conclusion
 
 This post-processing step demonstrates how to extract and visualize the SAR ADC output. The setup also forms a solid foundation for further analysis, such as computing dynamic performance metrics of the ADC—SNR, SINAD, and ENOB—using standard Python libraries.
+
