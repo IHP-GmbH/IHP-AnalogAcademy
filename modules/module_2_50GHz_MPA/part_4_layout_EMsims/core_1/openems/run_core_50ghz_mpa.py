@@ -22,8 +22,8 @@ from openEMS.physical_constants import *
 
 # preview model/mesh only?
 # postprocess existing data without re-running simulation?
-preview_only = True   
-postprocess_only = False
+preview_only = False   
+postprocess_only = True
 
 # ===================== input files and path settings =======================
 

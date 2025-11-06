@@ -1,0 +1,34 @@
+* Qucs 25.1.2  /home/pedersen/projects/IHP-AnalogAcademy/modules/module_2_50GHz_MPA/part_4_layout_EMsims/core_1/post_layout_sim/schematic/core_pl_sim.sch
+.LIB "/home/pedersen/IHP-Open-PDK/ihp-sg13g2/libs.tech/xyce/models/cornerHBT.lib" hbt_typ
+
+.SUBCKT IHP_PDK_nonlinear_components_npn13G2  gnd c b e bn Nx=1  
+X1 c b e bn npn13G2 Nx={Nx} 
+.ENDS
+  
+.PARAM y=1
+.GLOBAL 0:G
+
+
+
+V1 Vcc 0 1.65
+
+
+R5 0 Vout  50 
+C15 _net0 _net1  160F 
+
+C13 _net2 _net3  100F 
+R1 _net2 _net3  5K 
+V3 _net4 0 1.25
+
+
+C14 _net5 _net2  43F 
+
+
+
+Xnpn13G3 0  _net7 _net8 0 gnd IHP_PDK_nonlinear_components_npn13G2 Nx=10
+
+
+
+R6 _net6 Vin  50 
+
+.END
