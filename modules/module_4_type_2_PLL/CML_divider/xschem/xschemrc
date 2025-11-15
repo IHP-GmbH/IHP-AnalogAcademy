@@ -1,0 +1,12 @@
+# Source the base configuration from a known location
+source $::env(PDK_ROOT)/$::env(PDK)/libs.tech/xschem/xschemrc
+
+# Add current directory to xschem library path
+append XSCHEM_LIBRARY_PATH :[file dirname [info script]]
+
+# Source the dependencies xschemrc files
+foreach rcfile [glob -nocomplain ../ip/*/xschem/xschemrc] {
+  puts "sourcing $rcfile"
+  source $rcfile
+}
+

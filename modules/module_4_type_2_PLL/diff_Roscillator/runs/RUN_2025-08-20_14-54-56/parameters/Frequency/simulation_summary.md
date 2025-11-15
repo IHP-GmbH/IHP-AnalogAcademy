@@ -1,0 +1,5 @@
+# Simulation Summary for Freq
+
+| run | time_axis | vo_diff | frequency |
+| :-- | --------: | ------: | --------: |
+| run_0 | [0.000, 1.000e-13, 2.000e-13, …] | [-3.015e-01, -3.022e-01, -3.032e-01, …] | 4.976e+08 |

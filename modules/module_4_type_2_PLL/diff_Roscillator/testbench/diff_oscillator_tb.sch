@@ -4,16 +4,16 @@ K {}
 V {}
 S {}
 E {}
-B 2 1250 -560 2050 -160 {flags=graph
-y1=-0.59
-y2=1.3
+B 2 1060 -700 1860 -300 {flags=graph
+y1=-0.023
+y2=0.7
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=0
-x2=2e-09
+x1=2.2231151e-07
+x2=2.2291988e-07
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -26,64 +26,54 @@ color="4 7 12"
 node="voplus
 vominus
 vo_diff"}
-N 650 -240 700 -240 {lab=#net1}
-N 650 -160 700 -160 {lab=#net2}
-N 850 -240 900 -240 {lab=#net3}
-N 850 -160 900 -160 {lab=#net4}
-N 550 -290 550 -270 {lab=vdd}
-N 750 -290 950 -290 {lab=vdd}
-N 950 -290 950 -270 {lab=vdd}
-N 750 -290 750 -270 {lab=vdd}
-N 550 -290 750 -290 {lab=vdd}
-N 550 -130 550 -110 {lab=GND}
-N 550 -110 750 -110 {lab=GND}
-N 750 -130 750 -110 {lab=GND}
-N 750 -110 950 -110 {lab=GND}
-N 950 -130 950 -110 {lab=GND}
-N 480 -240 500 -240 {lab=Voplus}
-N 480 -330 1070 -330 {lab=Voplus}
-N 1050 -240 1070 -240 {lab=Voplus}
-N 480 -330 480 -240 {lab=Voplus}
-N 1070 -330 1070 -240 {lab=Voplus}
-N 1070 -160 1070 -70 {lab=Vominus}
-N 1050 -160 1070 -160 {lab=Vominus}
-N 480 -160 500 -160 {lab=Vominus}
-N 480 -160 480 -70 {lab=Vominus}
-N 400 -130 400 -90 {lab=GND}
-N 480 -70 1070 -70 {lab=Vominus}
-N 400 -230 400 -190 {lab=vdd}
-C {differential_core.sym} 650 -200 0 0 {name=x1}
-C {differential_core.sym} 850 -200 0 0 {name=x2}
-C {differential_core.sym} 1050 -200 0 0 {name=x3}
-C {lab_pin.sym} 950 -290 2 0 {name=p1 sig_type=std_logic lab=vdd}
-C {vsource.sym} 400 -160 0 0 {name=V1 value=1.2 savecurrent=false}
-C {gnd.sym} 950 -110 0 0 {name=l1 lab=GND}
-C {gnd.sym} 400 -90 0 0 {name=l2 lab=GND}
-C {lab_pin.sym} 400 -230 2 0 {name=p2 sig_type=std_logic lab=vdd}
-C {opin.sym} 1070 -330 0 0 {name=p3 lab=Voplus}
-C {opin.sym} 1070 -70 2 1 {name=p4 lab=Vominus}
-C {code_shown.sym} 0 -450 0 0 {name=transient_tb only_toplevel=false
+N 350 -300 350 -270 {lab=vdd}
+N 350 -210 350 -180 {lab=GND}
+N 600 -290 600 -270 {lab=GND}
+N 640 -290 640 -270 {lab=vdd}
+N 710 -400 740 -400 {lab=Voplus}
+N 710 -360 740 -360 {lab=Vominus}
+C {opin.sym} 740 -400 0 0 {name=p3 lab=Voplus}
+C {opin.sym} 740 -360 2 1 {name=p4 lab=Vominus}
+C {code_shown.sym} 10 -1120 0 0 {name=transient_tb only_toplevel=false
 value="
 .include diff_oscillator_tb.save
 .param temp=27
 .ic V(Voplus)=1.2
 .control
-save all 
+set noaskquit
+set numdgt=12
+
+* Save & simulate
+save all
 op
 write diff_oscillator_tb.raw
 set appendwrite
-tran 10p 2n
+tran 10p 1u 160p
 save all
-let vo_diff = v(Voplus) - v(Vominus)
-write diff_oscillator_tb.raw
 
+* Explicit vectors
+let vo_p    = v(Voplus)
+let vo_m    = v(Vominus)
+let vo_diff = vo_p - vo_m
+
+* --- Main output (mimic CACE naming, just to compare) ---
+set wr_singlescale
+wrdata differential_output.txt vo_diff
+
+* --- Extra debug (like we did for CACE) ---
+set wr_vecnames
+wrdata manual_debug.dat time vo_p vo_m vo_diff
+unset wr_vecnames
+
+write diff_oscillator_tb.raw
 .endc
 "}
-C {devices/code_shown.sym} 0 -110 0 0 {name=MODEL only_toplevel=true
+C {devices/code_shown.sym} 10 -460 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value=".lib cornerMOSlv.lib mos_tt
-"}
-C {launcher.sym} 1310 -70 0 0 {name=h3
+"
+}
+C {launcher.sym} 1120 -240 0 0 {name=h3
 descr=SimulateNGSPICE
 tclcommand="
 # Setup the default simulation commands if not already set up
@@ -107,11 +97,17 @@ write_data [save_params] $netlist_dir/[file rootname [file tail [xschem get curr
 xschem netlist
 simulate
 "}
-C {devices/launcher.sym} 1310 -110 0 0 {name=h1
+C {devices/launcher.sym} 1120 -280 0 0 {name=h1
 descr="OP annotate" 
 tclcommand="xschem annotate_op"
 }
-C {launcher.sym} 1310 -30 0 0 {name=h5
+C {launcher.sym} 1120 -190 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/diff_oscillator_tb.raw tran"
 }
+C {vsource.sym} 350 -240 0 0 {name=V1 value=1.2 savecurrent=false}
+C {gnd.sym} 350 -180 0 0 {name=l2 lab=GND}
+C {lab_pin.sym} 350 -300 0 0 {name=p2 sig_type=std_logic lab=vdd}
+C {diff_ring_oscillator.sym} 620 -380 0 0 {name=x1}
+C {gnd.sym} 600 -270 0 0 {name=l1 lab=GND}
+C {lab_pin.sym} 640 -270 0 1 {name=p1 sig_type=std_logic lab=vdd}

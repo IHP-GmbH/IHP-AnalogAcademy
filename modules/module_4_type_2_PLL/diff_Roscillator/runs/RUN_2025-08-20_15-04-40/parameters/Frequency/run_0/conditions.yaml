@@ -1,0 +1,8 @@
+DUT_path: /home/pedersen/projects/IHP-AnalogAcademy/modules/module_4_type_2_PLL/diff_Roscillator/xschem/simulations/schematic/diff_ring_oscillator.spice
+N: 0
+PDK: ihp-sg13g2
+PDK_ROOT: /home/pedersen/IHP-Open-PDK
+corner: tt
+filename: diff_oscillator_tb
+simpath: /home/pedersen/projects/IHP-AnalogAcademy/modules/module_4_type_2_PLL/diff_Roscillator/runs/RUN_2025-08-20_15-04-40/parameters/Frequency/run_0
+temperature: '27'

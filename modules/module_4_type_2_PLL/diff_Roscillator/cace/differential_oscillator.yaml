@@ -1,0 +1,85 @@
+#--------------------------------------------------------------
+# CACE circuit characterization file
+#--------------------------------------------------------------
+
+name:           diff_ring_oscillator
+description:    Differential Ring oscillator testbench
+PDK:            ihp-sg13g2
+
+cace_format:    5.2
+
+authorship:
+  designer:         
+  company:         
+  creation_date:    
+  license:          Apache 2.0
+
+paths:
+  root:             ..
+  schematic:        xschem/
+  netlist:          xschem/simulations
+  documentation:    docs
+
+pins:
+  vdd:
+    description: Positive analog power supply
+    type: power
+    direction: inout
+    Vmin: 0.8
+    Vmax: 1.8
+  gnd:
+    description: Analog ground
+    type: ground
+    direction: inout
+
+default_conditions:
+  vdd:
+    description: Analog power supply voltage
+    display: Vdd
+    unit: V
+    typical: 1.2
+  corner:
+    description: Process corner
+    display: Corner
+    typical: tt
+  temperature:
+    description: Ambient temperature
+    display: Temp
+    unit: °C
+    typical: 27
+
+parameters:
+  Frequency:
+    description: Analysing the frequency of the oscillator
+    display: Freq
+    unit: GHz
+    spec:
+      frequency:
+        minimum:
+          value: 4.2
+        typical:
+          value: 5.4
+        maximum:
+          value: 7.1
+    tool:
+      ngspice:
+        template: diff_oscillator_tb.sch
+        format: ascii
+        suffix: .data
+        variables: [time_axis, vo_diff]
+        script: freq.py
+        script_variables: [frequency]
+        
+    plot:
+      frequency:
+        xaxis: time_axis
+        yaxis: vo_diff
+    conditions:
+      vdd:
+        typical: 1.2
+      temperature:
+        typical: 27
+      corner:
+        typical: tt
+      
+   

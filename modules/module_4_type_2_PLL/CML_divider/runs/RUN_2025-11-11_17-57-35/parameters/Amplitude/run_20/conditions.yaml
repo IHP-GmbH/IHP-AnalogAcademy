@@ -1,0 +1,9 @@
+DUT_path: /home/pedersen/projects/IHP-AnalogAcademy/modules/module_4_type_2_PLL/CML_divider/xschem/simulations/schematic/CML_divider.spice
+N: 20
+PDK: ihp-sg13g2
+PDK_ROOT: /home/pedersen/IHP-Open-PDK
+corner: ss
+filename: CML_core_tb
+simpath: /home/pedersen/projects/IHP-AnalogAcademy/modules/module_4_type_2_PLL/CML_divider/runs/RUN_2025-11-11_17-57-35/parameters/Amplitude/run_20
+temperature: '-40'
+vdd: '1.6'
