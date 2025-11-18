@@ -1,0 +1,115 @@
+#--------------------------------------------------------------
+# CACE circuit characterization file
+#--------------------------------------------------------------
+
+name:           LC_Oscillator
+description:    LC based voltage controlled oscillator
+PDK:            ihp-sg13g2
+
+cace_format:    5.2
+
+authorship:
+  designer: Phillip F. Baade-Pedersen      
+  company: IHP
+  creation_date:    
+  license:          Apache 2.0
+
+paths:
+  root:             ..
+  schematic:        xschem/
+  netlist:          xschem/simulations
+  documentation:    docs
+
+pins:
+  VDD:
+    description: Positive analog power supply
+    type: power
+    direction: inout
+    Vmin: 0.8
+    Vmax: 1.6
+  Vinplus:
+    description: Positive Input
+    type: signal
+    direction: input
+  Vinminus:
+    description: Negative Input
+    type: signal
+    direction: input
+  
+default_conditions:
+  vdd:
+    description: Analog power supply voltage
+    display: Vdd
+    unit: V
+    typical: 1.2
+  corner:
+    description: Process corner
+    display: Corner
+    typical: tt
+  temperature:
+    description: Ambient temperature
+    display: Temp
+    unit: °C
+    typical: 27
+
+parameters:
+  ac_params:
+    description: Frequency characterization of the LC-VCO
+    display: VCO Control Voltage Repsonse
+    spec:
+      frequency:
+        display: Frequency
+        description: Output frequency of the VCO
+        unit: GHz
+        minimum:
+          value: 4.3
+        typical:
+          value: 5.0
+        maximum:
+          value: 5.2
+      amplitude:
+        display: Amplitude
+        description: Differential output amplitude (half swing)
+        unit: V
+        minimum:
+          value: 0.2
+        typical:
+          value: 0.4
+        maximum:
+          value: 0.6
+      voltage_swing:
+        display: Voltage swing
+        description: Differential peak-to-peak output swing
+        unit: V
+        minimum:
+          value: 0.4
+        typical:
+          value: 0.8
+        maximum:
+          value: 1.2
+    tool:
+      ngspice:
+        template: LC_Oscillator_tb.sch
+        format: ascii
+        suffix: .data
+        variables: [time, vo_diff]
+        script: freq.py
+        script_variables: [frequency, amplitude, voltage_swing]
+    plot:
+      vo_diff_vs_time:
+        type: xyplot
+        xaxis: time
+        yaxis: vo_diff
+    conditions:
+      vdd:
+        minimum: 0.8
+        typical: 1.2
+        maximum: 1.6
+      corner:
+        enumerate: [tt, ff, ss]
+      temperature:
+        minimum: -40
+        typical: 27
+        maximum: 80
+      
+   

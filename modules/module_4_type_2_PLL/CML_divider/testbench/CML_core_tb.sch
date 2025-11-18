@@ -1,19 +1,20 @@
-v {xschem version=3.4.6 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 B 2 1110 -700 1910 -300 {flags=graph
-y1=0.72
-y2=1.2
+y1=0.29
+y2=1.1
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.9974739e-10
-x2=5.9578291e-10
+x1=1.628e-10
+x2=1e-09
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -26,15 +27,15 @@ color="4 7"
 node="vo_m
 vo_p"}
 B 2 1110 -1120 1910 -720 {flags=graph
-y1=0.17956962
-y2=0.4801486
+y1=0.3
+y2=0.9
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.9974739e-10
-x2=5.9578291e-10
+x1=1.628e-10
+x2=1e-09
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -48,15 +49,15 @@ node="vinplus
 vinminus"
 }
 B 2 1930 -1120 2730 -720 {flags=graph
-y1=-0.41
-y2=0.41
+y1=-0.79
+y2=0.79
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=2.9974739e-10
-x2=5.9578291e-10
+x1=1.628e-10
+x2=1e-09
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -83,7 +84,7 @@ C {code_shown.sym} 10 -1150 0 0 {name=transient_tb only_toplevel=false
 value="
 .include CML_core_tb.save
 .param temp=100
-.param A = 0.3
+.param A = 0
 .ic V(Voplus)=1.2
 .control
 set noaskquit
