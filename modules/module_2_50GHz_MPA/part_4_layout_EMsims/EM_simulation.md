@@ -137,18 +137,18 @@ The script defines simulation parameters such as the unit of measurement (micron
 
 ```
 unit = 1e-6  # Geometry is in microns
-margin = 100  # Margin from GDSII geometry to simulation boundary in microns
+margin = 20  # Margin from GDSII geometry to simulation boundary in microns
 fstart = 0  # Start frequency (Hz)
 fstop = 350e9  # Stop frequency (Hz)
 numfreq = 401  # Number of frequency points to simulate
-refined_cellsize = 0.3  # Mesh cell size in conductor region
+refined_cellsize = 0.5  # Mesh cell size in conductor region
 
 ```
 
 The boundary conditions for the simulation are also defined here using options like **'PEC'** (Perfect Electric Conductor), **'PMC'** (Perfect Magnetic Conductor), **'MUR'** (simple absorbing boundary), and **'PML_8'** (Perfectly Matched Layer).
 
 ```
-`Boundaries = ['PML_4', 'PML_4', 'PML_4', 'PML_4', 'PEC', 'PML_4']`
+Boundaries = ['PEC', 'PEC', 'PEC', 'PEC', 'PEC', 'MUR']
 ```
 
 

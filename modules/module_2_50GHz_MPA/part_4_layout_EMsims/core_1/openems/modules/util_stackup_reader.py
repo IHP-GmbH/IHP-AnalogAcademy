@@ -1,5 +1,22 @@
-# Read XML file with SG13G2 stackup
+########################################################################
+#
+# Copyright 2025 Volker Muehlhaus and IHP PDK Authors
+#
+# Licensed under the GNU General Public License, Version 3.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    https://www.gnu.org/licenses/gpl-3.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+########################################################################
 
+# Read XML file with SG13G2 stackup
 # File history: 
 # Initial version 20 Nov 2024  Volker Muehlhaus 
 
@@ -13,14 +30,24 @@ class stackup_material:
   """
     stackup material object
   """
-    
+
   def __init__ (self, data):
+
+    def safe_get (key, default):
+      val = data.get(key)
+      if val is not None:
+        return val
+      else:  
+        return default
+
     self.name = data.get("Name")
-    self.type = data.get("Type")
-    self.eps  = float(data.get("Permittivity"))
-    self.tand = float(data.get("DielectricLossTangent"))
-    self.sigma = float(data.get("Conductivity"))
-    self.color = data.get("Color")
+    self.type = data.get("Type").upper()
+    
+    self.eps   = float(safe_get("Permittivity", 1))
+    self.tand  = float(safe_get("DielectricLossTangent", 0))
+    self.sigma = float(safe_get("Conductivity", 0))
+    self.Rs    = float(safe_get("Rs", 0))
+    self.color = data.get("Color")  # no default here, will be handled later 
 
 
   def __str__ (self):
@@ -70,6 +97,7 @@ class dielectric_layer:
     self.zmax = 0
     self.is_top = False
     self.is_bottom = False
+    self.gdsboundary = data.get("Boundary")  # optional entry in stackup file
 
   def __str__ (self):
     # string representation 
@@ -104,8 +132,19 @@ class dielectric_layers_list:
     for dielectric in self.dielectrics:
       if dielectric.name ==  name_to_find:
         found = dielectric
-    return dielectric    
+    return found    
 
+  def get_boundary_layers (self):
+    # For substrates where Boundary is specified in dielectric layers, return a list of those layers 
+    # This is required for the next step, GDSII reader, which needs to know the layers to read. 
+    boundary_layer_list = []
+    for dielectric in self.dielectrics:
+      if dielectric.gdsboundary is not None:
+        value = int(dielectric.gdsboundary)
+        if value not in boundary_layer_list:
+          boundary_layer_list.append(value) 
+    return boundary_layer_list
+  
 
 
 # -------------------- conductor layers (metal and via) ---------------------------
@@ -118,13 +157,24 @@ class metal_layer:
   def __init__ (self, data):
     self.name = data.get("Name")
     self.layernum = data.get("Layer")
-    self.type = data.get("Type")
+    self.type = data.get("Type").upper()
     self.material = data.get("Material")
     self.zmin = float(data.get("Zmin"))
     self.zmax = float(data.get("Zmax"))
+
+    # force to sheet if zero thickness
+    if data.get("Zmin") == data.get("Zmax"):
+      self.type = "SHEET"
+
+    if self.type == "SHEET" and not self.zmin==self.zmax:
+      print('ERROR: Layer ', self.name, ' is defined as sheet layer, but Zmax is different from Zmin. This is not valid!')
+      exit(1)
+
     self.thickness = self.zmax-self.zmin
-    self.is_via = (self.type=="via")
-    self.is_metal = (self.type=="conductor")
+    self.is_via = (self.type=="VIA")
+    self.is_metal = (self.type=="CONDUCTOR")
+    self.is_dielectric = (self.type=="DIELECTRIC")
+    self.is_sheet = (self.type=="SHEET")
     self.is_used = False
 
   def __str__ (self):
@@ -187,7 +237,6 @@ class metal_layers_list:
       metal.zmax = metal.zmax + offset
 
 
-
 # ----------- parse substrate file, get materials from list created before -----------
 
 def read_substrate (XML_filename):
@@ -248,7 +297,7 @@ def read_substrate (XML_filename):
 
 if __name__ == "__main__":
 
-  XML_filename = "SG13.xml"
+  XML_filename = "SG13G2.xml"
   materials_list, dielectrics_list, metals_list = read_substrate (XML_filename)
 
   for material in materials_list.materials:
@@ -275,4 +324,3 @@ if __name__ == "__main__":
 
 
  
-

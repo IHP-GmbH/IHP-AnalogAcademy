@@ -3,19 +3,26 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'modules')))
 
 import modules.util_stackup_reader as stackup_reader
-import util_gds_reader as gds_reader
-import util_utilities as utilities
-import util_simulation_setup as simulation_setup
-import util_meshlines
+import modules.util_gds_reader as gds_reader
+import modules.util_utilities as utilities
+import modules.util_simulation_setup as simulation_setup
+import modules.util_meshlines as util_meshlines
 
 import os
-from pylab import *
+import matplotlib.pyplot as plt  # pip install matplotlib
+import numpy as np
 from CSXCAD import ContinuousStructure
 from CSXCAD import AppCSXCAD_BIN
 from openEMS import openEMS
 from openEMS.physical_constants import *
 
+
 # Model comments
+# Changes for IHP Analog Academy in 01/2026:
+# Changed to MUR boundary at zmax so that radiation can be absorbed.
+# From experience, using MUR can create numerical issue when it touches the lossy silicon, so it is ONLY used at zmax.
+# All other boundaries use PEC, for best simulation speed.
+# Distance to side walls reduced, we have not much field there because of the Metal1 ground layout.
 
 
 # ======================== workflow settings ================================
@@ -51,20 +58,20 @@ print('Simulation data directory: ', sim_path)
 # ======================== simulation settings ================================
 
 unit   = 1e-6   # geometry is in microns
-margin = 100    # distance in microns from GDSII geometry boundary to simulation boundary 
+margin = 20    # distance in microns from GDSII geometry boundary to simulation boundary 
 
 fstart = 0
 fstop  = 350e9
 numfreq = 401
 
-refined_cellsize = 0.3  # mesh cell size in conductor region
+refined_cellsize = 0.5  # mesh cell size in conductor region
 
 # choices for boundary xmin,xmax,ymin,ymax,zmin,zmax: 
 # 'PEC' : perfect electric conductor (default)
 # 'PMC' : perfect magnetic conductor, useful for symmetries
 # 'MUR' : simple MUR absorbing boundary conditions
 # 'PML_8' : PML absorbing boundary conditions
-Boundaries = ['PML_4', 'PML_4', 'PML_4', 'PML_4', 'PEC', 'PML_4']
+Boundaries = ['PEC', 'PEC', 'PEC', 'PEC', 'PEC', 'MUR']
 
 cells_per_wavelength = 20   # how many mesh cells per wavelength, must be 10 or more
 energy_limit = -50          # end criteria for residual energy (dB)
@@ -92,7 +99,7 @@ allpolygons = gds_reader.read_gds(gds_filename, layernumbers, purposelist=[0], m
 
 # calculate maximum cellsize from wavelength in dielectric
 wavelength_air = 3e8/fstop
-max_cellsize = (wavelength_air/unit)/(sqrt(materials_list.eps_max)*cells_per_wavelength) 
+max_cellsize = (wavelength_air/unit)/(np.sqrt(materials_list.eps_max)*cells_per_wavelength) 
 
 
 ########### create model, run and post-process ###########
@@ -100,7 +107,7 @@ max_cellsize = (wavelength_air/unit)/(sqrt(materials_list.eps_max)*cells_per_wav
 
 # Create simulation for port 1 .. 4 excitation, return value is data path for that excitation
 
-FDTD = openEMS(EndCriteria=exp(energy_limit/10 * log(10)))
+FDTD = openEMS(EndCriteria=np.exp(energy_limit/10 * np.log(10)))
 FDTD.SetGaussExcite( (fstart+fstop)/2, (fstop-fstart)/2 )
 FDTD.SetBoundaryCond( Boundaries )
 
@@ -121,7 +128,7 @@ if preview_only==False:
 
     # define phase function for S-parameters
     def phase(value):
-        return angle(value, deg=True) 
+        return np.angle(value, deg=True) 
 
     f = np.linspace(fstart,fstop,numfreq)
 
@@ -149,21 +156,29 @@ if preview_only==False:
 
     print('\nStarting plots')
 
-    figure()
-    plot(f/1e9, dB(s21), 'k-',  linewidth=2, label='S11 [dB]')
-    grid()
-    legend()
-    xlabel('Frequency (GHz)')
+    fig, axis = plt.subplots(num="S11_dB", tight_layout=True)
+    axis.plot(f/1e9, dB(s11), 'k-',  linewidth=2, label='dB(S11)')
+    axis.grid()
+    axis.set_xmargin(0)
+    axis.set_xlabel('Frequency (GHz)')
+    axis.set_ylabel('S (dB)')
+    axis.legend()
 
-    figure()
-    plot(f/1e9, phase(s21), 'k-',  linewidth=2, label='S11 phase [degree]')
-    grid()
-    legend()
-    xlabel('Frequency (GHz)')
+    fig, axis = plt.subplots(num="S11_ang", tight_layout=True)
+    axis.plot(f/1e9, phase(s11), 'k-',  linewidth=2, label='ang(S11)')
+    axis.grid()
+    axis.set_xmargin(0)
+    axis.set_xlabel('Frequency (GHz)')
+    axis.set_ylabel('angle degree')
+    axis.legend()
 
+    fig, axis = plt.subplots(num="S31_ang", tight_layout=True)
+    axis.plot(f/1e9, phase(s31), 'k-',  linewidth=2, label='ang(S31)')
+    axis.grid()
+    axis.set_xmargin(0)
+    axis.set_xlabel('Frequency (GHz)')
+    axis.set_ylabel('angle degree')
+    axis.legend()
 
-    # Show all plots
-    show()
-
-
-
+    # show all plots
+    plt.show()
