@@ -72,7 +72,7 @@ kpex \
   --magic_merge conservative \
   --out_dir ./pex_output
 
-# Find the generated spice file (assuming only one)
+# Find the generated spice file
 spice_location=$(find ./pex_output -type f -name "*.spice" ! -name "*_dummy_schematic.spice" | head -n 1)
 
 

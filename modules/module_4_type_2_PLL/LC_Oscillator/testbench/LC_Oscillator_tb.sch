@@ -1,20 +1,19 @@
-v {xschem version=3.4.8RC file_version=1.3}
+v {xschem version=3.4.6 file_version=1.2}
 G {}
 K {}
 V {}
 S {}
-F {}
 E {}
 B 2 1120 -1110 1920 -710 {flags=graph
-y1=1.1
-y2=1.3
+y1=0.96
+y2=1.5
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=1.628e-10
-x2=1e-09
+x1=3.9785566e-09
+x2=4.2974576e-09
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -27,15 +26,15 @@ color="4 7"
 node="vo_m
 vo_p"}
 B 2 1930 -1120 2730 -720 {flags=graph
-y1=-0.41
-y2=0.41
+y1=-0.47
+y2=0.47
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=1.628e-10
-x2=1e-09
+x1=3.9785566e-09
+x2=4.2974576e-09
 divx=5
 subdivx=1
 xlabmag=1.0
@@ -52,7 +51,9 @@ N 740 -520 740 -500 {lab=GND}
 N 700 -530 700 -500 {lab=vdd}
 N 610 -390 630 -390 {lab=Voplus}
 N 610 -430 630 -430 {lab=Vominus}
-C {code_shown.sym} 440 -1140 0 0 {name=transient_tb only_toplevel=false
+N 820 -410 860 -410 {lab=#net1}
+N 860 -350 860 -320 {lab=GND}
+C {code_shown.sym} 240 -1160 0 0 {name=transient_tb only_toplevel=false
 value="
 .include LC_Oscillator_tb.save
 .param temp=27
@@ -87,7 +88,7 @@ write LC_Oscillator_tb.raw
 "}
 C {devices/code_shown.sym} 810 -1130 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
-value=".lib cornerMOSlv.lib mos_tt
+value=".lib cornerMOSlv.lib mos_ss
 "
 }
 C {devices/launcher.sym} 1190 -250 0 0 {name=h1
@@ -98,7 +99,7 @@ C {launcher.sym} 1190 -170 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/LC_Oscillator_tb.raw tran"
 }
-C {vsource.sym} 1040 -470 0 0 {name=V1 value=1.2 savecurrent=false}
+C {vsource.sym} 1040 -470 0 0 {name=V1 value= 1.2 savecurrent=false}
 C {gnd.sym} 1040 -410 0 0 {name=l2 lab=GND}
 C {lab_pin.sym} 1040 -530 0 0 {name=p2 sig_type=std_logic lab=vdd}
 C {opin.sym} 610 -390 2 0 {name=p6 lab=Voplus}
@@ -130,3 +131,5 @@ simulate
 "}
 C {opin.sym} 610 -430 0 1 {name=p9 lab=Vominus}
 C {LC_Oscillator.sym} 720 -410 2 0 {name=x1}
+C {vsource.sym} 860 -380 0 0 {name=V2 value= 0.2 savecurrent=false}
+C {gnd.sym} 860 -320 0 0 {name=l1 lab=GND}

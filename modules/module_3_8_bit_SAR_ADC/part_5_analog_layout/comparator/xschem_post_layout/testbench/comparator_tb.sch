@@ -6,13 +6,13 @@ S {}
 E {}
 B 2 20 -1225 820 -825 {flags=graph
 y1=0
-y2=1.3
+y2=1.2
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=4.0396485e-08
+x1=0
 
 divx=5
 subdivx=4
@@ -24,7 +24,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=4.0503685e-08
+x2=2e-08
 color=4
 node=clk}
 B 2 20 -855 820 -455 {flags=graph
@@ -35,7 +35,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=4.0396485e-08
+x1=0
 
 divx=5
 subdivx=4
@@ -47,7 +47,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=4.0503685e-08
+x2=2e-08
 
 
 color=4
@@ -60,7 +60,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=4.0396485e-08
+x1=0
 
 divx=5
 subdivx=4
@@ -72,7 +72,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=4.0503685e-08
+x2=2e-08
 
 
 color=4
@@ -99,10 +99,10 @@ logy=0
 
 color=4
 node=outp
-x2=4.0503685e-08
-x1=4.0396485e-08
-hcursor1_y=0.13669334
-hcursor2_y=1.0706523}
+x2=2e-08
+x1=0
+hcursor2_y=1.0706523
+hcursor1_y=-0.015633803}
 B 2 850 -395 1650 5 {flags=graph
 y1=0.24502661
 y2=1.4615386
@@ -111,7 +111,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=4.0396485e-08
+x1=0
 
 divx=5
 subdivx=4
@@ -123,7 +123,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=4.0503685e-08
+x2=2e-08
 
 
 color=4
@@ -184,12 +184,12 @@ N 80 -300 80 -280 {
 lab=vinp}
 N 80 -380 80 -360 {
 lab=GND}
-C {devices/code_shown.sym} -1305 -680 0 0 {name=MODEL only_toplevel=false
+C {devices/code_shown.sym} -1305 -630 0 0 {name=MODEL only_toplevel=false
 format="tcleval( @value )"
 value="
 .lib cornerMOSlv.lib mos_tt
 "}
-C {devices/code_shown.sym} -1325 -1180 0 0 {name=NGSPICE only_toplevel=false 
+C {devices/code_shown.sym} -1325 -1190 0 0 {name=NGSPICE only_toplevel=false 
 value="
 .param temp=27
 .param clock = 100e6       ; 100 MHz clock
@@ -206,14 +206,16 @@ set appendwrite
 
 * Transient analysis
 .options meas_step_max=1e-10
-tran 500p 1u
+tran 500p 20n
 let vindiff = v(vinp) - v(vbias)
 let clk = v(clk)
 let vout = v(outp) - v(outm)
 
-meas TRAN rise_time TRIG v(outp) VAL=0.12  TD=9n RISE=4 TARG v(outp) VAL=1.08 TD=9n RISE=4
-meas TRAN fall_time TRIG v(outp) VAL=1.08  TD=9n RISE=4 TARG v(outp) VAL=0.12 TD=9n RISE=4
-
+meas TRAN rise_time TRIG v(outp) VAL=0.12  TD=0 RISE=1 TARG v(outp) VAL=1.08 TD=0 RISE=1
+meas TRAN fall_time TRIG v(outp) VAL=1.08  TD=0 FALL=1 TARG v(outp) VAL=0.12 TD=0 FALL=1
+set wr_singlescale
+set wr_vecnames
+wrdata parasitic_rise_time.txt outp outm clk
 write comparator_tb.raw
 .endc
 "}
@@ -222,7 +224,7 @@ C {vsource.sym} -540 -130 0 0 {name=V4 value="DC 0.6"}
 C {gnd.sym} -310 -70 0 0 {name=l1 lab=GND}
 C {lab_pin.sym} -540 -180 2 0 {name=p3 sig_type=std_logic lab=vbias}
 C {lab_pin.sym} -610 -180 2 0 {name=p4 sig_type=std_logic lab=vdd}
-C {vsource.sym} -420 -130 0 0 {name=V1 value="PULSE(0 1.2 0 0 0 5N \{period\})"}
+C {vsource.sym} -420 -130 0 0 {name=V1 value="PULSE(0 1.2 0 10p 10p 5N \{period\})"}
 C {lab_pin.sym} -420 -180 2 0 {name=p1 sig_type=std_logic lab=clk}
 C {gnd.sym} -570 -70 0 0 {name=l2 lab=GND}
 C {vsource.sym} -210 -130 0 0 {name=V2 value="PULSE(595e-3 605e-3 0 tr 1S 1S)"}
@@ -309,43 +311,43 @@ X9 gnd clk a_944_1911# gnd sg13_lv_nmos ad=0.76p pd=4.38u as=1.44p ps=4.72u w=4u
 X10 out- a_687_2445# vdd vdd sg13_lv_pmos ad=1.36p pd=8.68u as=0.76p ps=4.38u w=4u l=0.2u M=2
 X11 out+ a_944_1911# gnd gnd sg13_lv_nmos ad=0.68p pd=4.68u as=0.38p ps=2.38u w=2u l=0.2u M=2
 X12 a_1245_3300# clk a_1752_817# vdd sg13_lv_pmos ad=1.53p pd=9.68u as=0.855p ps=4.88u w=4.5u l=0.3u M=4
-C0 V+ vdd 4.08205f
-C1 V- vdd 4.06121f
-C2 a_1245_3300# V+ 0.76573f
-C3 vdd a_1752_817# 7.11146f
-C4 a_1245_3300# V- 0.94179f
-C5 vdd a_944_1911# 1.10862f
-C6 a_1245_3300# a_1752_817# 3.76533f
-C7 a_1245_3300# a_944_1911# 8.04522f
-C8 vdd out+ 1.84773f
-C9 vdd out- 1.84304f
-C10 V- V+ 1.61045f
-C11 vdd vbias 2.83964f
-C12 vdd clk 2.98842f
-C13 a_1245_3300# out+ 0.36924f
-C14 a_687_2445# vdd 1.31156f
-C15 a_1245_3300# out- 0.36795f
-C16 V+ a_944_1911# 1.08178f
-C17 a_1245_3300# clk 0.44782f
-C18 V- a_944_1911# 0.46901f
-C19 a_1245_3300# a_687_2445# 11.3534f
-C20 a_944_1911# a_1752_817# 0.0558f
-C21 a_687_2445# V+ 0.13025f
-C22 a_687_2445# V- 0.78527f
-C23 out+ a_944_1911# 0.80028f
-C24 out- a_944_1911# 0.61161f
-C25 vbias a_1752_817# 2.28993f
-C26 clk a_1752_817# 0.5025f
-C27 clk a_944_1911# 0.24743f
-C28 a_687_2445# a_1752_817# 0.04531f
-C29 a_687_2445# a_944_1911# 2.24936f
-C30 out- out+ 0.0933f
-C31 a_687_2445# out+ 0.69286f
-C32 clk vbias 0.19878f
-C33 a_687_2445# out- 0.89453f
-C34 a_687_2445# clk 0.23833f
-C35 a_1245_3300# vdd 2.55093f
-C36 vdd w_805_2869# 0.1537f
+C0 vdd a_944_1911# 1.10862f
+C1 a_944_1911# out+ 0.80028f
+C2 a_944_1911# out- 0.61161f
+C3 a_1245_3300# vdd 2.55093f
+C4 a_1245_3300# out+ 0.36924f
+C5 a_1245_3300# out- 0.36795f
+C6 a_944_1911# V+ 1.08178f
+C7 vdd out+ 1.84773f
+C8 vdd out- 1.84304f
+C9 a_944_1911# V- 0.46901f
+C10 out- out+ 0.0933f
+C11 a_687_2445# clk 0.23833f
+C12 a_687_2445# a_1752_817# 0.04531f
+C13 a_1245_3300# V+ 0.76573f
+C14 a_687_2445# a_944_1911# 2.24936f
+C15 a_1245_3300# V- 0.94179f
+C16 vdd V+ 4.08205f
+C17 vdd V- 4.06121f
+C18 a_1245_3300# a_687_2445# 11.3534f
+C19 a_687_2445# vdd 1.31156f
+C20 a_687_2445# out+ 0.69286f
+C21 a_687_2445# out- 0.89453f
+C22 clk vbias 0.19878f
+C23 V- V+ 1.61045f
+C24 a_1752_817# vbias 2.28993f
+C25 a_1752_817# clk 0.5025f
+C26 a_944_1911# clk 0.24743f
+C27 vdd w_805_2869# 0.1537f
+C28 a_687_2445# V+ 0.13025f
+C29 a_944_1911# a_1752_817# 0.0558f
+C30 a_687_2445# V- 0.78527f
+C31 a_1245_3300# clk 0.44782f
+C32 vdd vbias 2.83964f
+C33 vdd clk 2.98842f
+C34 a_1245_3300# a_1752_817# 3.76533f
+C35 a_1245_3300# a_944_1911# 8.04522f
+C36 vdd a_1752_817# 7.11146f
 R0 V+.n6 V+.n0 17.1875
 R1 V+.n6 V+.n5 16.5321
 R2 V+.n2 V+.n1 15.8046

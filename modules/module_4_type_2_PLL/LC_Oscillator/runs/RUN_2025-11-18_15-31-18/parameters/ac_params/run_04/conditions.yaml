@@ -1,0 +1,9 @@
+DUT_path: /home/pedersen/projects/IHP-AnalogAcademy/modules/module_4_type_2_PLL/LC_Oscillator/xschem/simulations/schematic/LC_Oscillator.spice
+N: 4
+PDK: ihp-sg13g2
+PDK_ROOT: /home/pedersen/IHP-Open-PDK
+corner: ff
+filename: LC_Oscillator_tb
+simpath: /home/pedersen/projects/IHP-AnalogAcademy/modules/module_4_type_2_PLL/LC_Oscillator/runs/RUN_2025-11-18_15-31-18/parameters/ac_params/run_04
+temperature: '-40'
+vdd: '1.2'

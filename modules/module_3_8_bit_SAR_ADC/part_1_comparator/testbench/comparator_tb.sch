@@ -12,7 +12,7 @@ ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=4.0396485e-08
+x1=0
 
 divx=5
 subdivx=4
@@ -24,18 +24,18 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=4.0503685e-08
+x2=1e-08
 color=4
 node=clk}
 B 2 20 -855 820 -455 {flags=graph
 y1=0.59
-y2=0.61
+y2=0.6
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=4.0396485e-08
+x1=0
 
 divx=5
 subdivx=4
@@ -47,20 +47,20 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=4.0503685e-08
+x2=1e-08
 
 
 color=4
 node=vinp}
 B 2 850 -1225 1650 -825 {flags=graph
 y1=-1.3
-y2=1.3
+y2=0.0088
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=4.0396485e-08
+x1=0
 
 divx=5
 subdivx=4
@@ -72,14 +72,14 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=4.0503685e-08
+x2=1e-08
 
 
 color=4
 node=vout}
 B 2 850 -805 1650 -405 {flags=graph
-y1=-0.13480066
-y2=1.3283316
+y1=-2e-05
+y2=1.3
 ypos1=0
 ypos2=2
 divy=5
@@ -99,19 +99,19 @@ logy=0
 
 color=4
 node=outp
-x2=4.0503685e-08
-x1=4.0396485e-08
+x2=1e-08
+x1=0
 hcursor1_y=0.13669334
 hcursor2_y=1.0706523}
 B 2 850 -395 1650 5 {flags=graph
-y1=0.24502661
-y2=1.4615386
+y1=1.1
+y2=1.3
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=4.0396485e-08
+x1=0
 
 divx=5
 subdivx=4
@@ -123,7 +123,7 @@ dataset=-1
 unitx=1
 logx=0
 logy=0
-x2=4.0503685e-08
+x2=1e-08
 
 
 color=4
@@ -189,7 +189,7 @@ format="tcleval( @value )"
 value="
 .lib cornerMOSlv.lib mos_tt
 "}
-C {devices/code_shown.sym} -1325 -1180 0 0 {name=NGSPICE only_toplevel=false 
+C {devices/code_shown.sym} -1325 -1350 0 0 {name=NGSPICE only_toplevel=false 
 value="
 .param temp=27
 .param clock = 100e6       ; 100 MHz clock
@@ -206,15 +206,16 @@ set appendwrite
 
 * Transient analysis
 .options meas_step_max=1e-10
-tran 500p 1u
+tran 500p 20n
 let vindiff = v(vinp) - v(vbias)
 let clk = v(clk)
 let vout = v(outp) - v(outm)
 
-meas TRAN rise_time TRIG v(outp) VAL=0.12  TD=9n RISE=4 TARG v(outp) VAL=1.08 TD=9n RISE=4
-meas TRAN fall_time TRIG v(outp) VAL=1.08  TD=9n RISE=4 TARG v(outp) VAL=0.12 TD=9n RISE=4
-
+set wr_singlescale
+set wr_vecnames
+wrdata outp outm clk
 write comparator_tb.raw
+
 .endc
 "}
 C {vsource.sym} -610 -130 0 0 {name=V3 value="DC 1.2"}
@@ -268,7 +269,7 @@ C {launcher.sym} -210 -850 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/comparator_tb.raw tran"
 }
-C {launcher.sym} -210 -775 0 0 {name=h2
+C {launcher.sym} -210 -785 0 0 {name=h2
 descr=SimulateNGSPICE
 tclcommand="
 # Setup the default simulation commands if not already set up
