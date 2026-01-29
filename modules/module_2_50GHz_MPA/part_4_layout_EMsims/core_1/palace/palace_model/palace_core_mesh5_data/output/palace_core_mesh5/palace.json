@@ -1,0 +1,115 @@
+{
+  "ElapsedTime": {
+    "Counts": {
+      "Adaptation": 0,
+      "CoarseSolve": 738,
+      "Construction": 2,
+      "DiskIO": 3,
+      "Div.-FreeProjection": 0,
+      "EigenvalueSolve": 0,
+      "Estimation": 32,
+      "FarFields": 0,
+      "Gridfunction": 0,
+      "Initialization": 2,
+      "LinearSolve": 16,
+      "MeshPreprocessing": 1,
+      "OperatorConstruction": 1,
+      "PROMConstruction": 40,
+      "PROMSolve": 296,
+      "Paraview": 0,
+      "Postprocessing": 581,
+      "Preconditioner": 738,
+      "Rebalancing": 0,
+      "Setup": 16,
+      "Solve": 32,
+      "TimeStepping": 0,
+      "Total": 1,
+      "WavePorts": 0
+    },
+    "Durations": {
+      "Adaptation": 0.0,
+      "CoarseSolve": 1.6454519299999977,
+      "Construction": 0.100126908,
+      "DiskIO": 0.05004743999999999,
+      "Div.-FreeProjection": 0.0,
+      "EigenvalueSolve": 0.0,
+      "Estimation": 0.017105461000000002,
+      "FarFields": 0.0,
+      "Gridfunction": 0.0,
+      "Initialization": 0.035368158,
+      "LinearSolve": 1.6860461080000004,
+      "MeshPreprocessing": 0.07876820600000001,
+      "OperatorConstruction": 2.5443325920000004,
+      "PROMConstruction": 0.094942069,
+      "PROMSolve": 0.021325431000000006,
+      "Paraview": 0.0,
+      "Postprocessing": 1.1878228670000004,
+      "Preconditioner": 13.340081672999977,
+      "Rebalancing": 0.0,
+      "Setup": 1.5453102660000002,
+      "Solve": 14.302805578000001,
+      "TimeStepping": 0.0,
+      "Total": 37.189506332,
+      "WavePorts": 0.0
+    }
+  },
+  "Excitations": [
+    [
+      [
+        1,
+        {
+          "LumpedPort": [
+            1
+          ],
+          "SurfaceCurrent": [],
+          "WavePort": []
+        }
+      ],
+      [
+        2,
+        {
+          "LumpedPort": [
+            2
+          ],
+          "SurfaceCurrent": [],
+          "WavePort": []
+        }
+      ],
+      [
+        3,
+        {
+          "LumpedPort": [
+            3
+          ],
+          "SurfaceCurrent": [],
+          "WavePort": []
+        }
+      ],
+      [
+        4,
+        {
+          "LumpedPort": [
+            4
+          ],
+          "SurfaceCurrent": [],
+          "WavePort": []
+        }
+      ]
+    ]
+  ],
+  "GitTag": "v0.15.0-5-gc60bc853",
+  "LinearSolver": {
+    "TotalIts": 722,
+    "TotalSolves": 16
+  },
+  "Problem": {
+    "DegreesOfFreedom": 63722,
+    "MPISize": 16,
+    "MeshElements": 9162,
+    "MultigridDegreesOfFreedom": [
+      12352,
+      63722
+    ],
+    "OpenMPThreads": 1
+  }
+}
