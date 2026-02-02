@@ -60,22 +60,30 @@ footprint=1206
 device="ceramic capacitor"}
 C {gnd.sym} 480 -475 0 0 {name=l5 lab=GND}
 C {iopin.sym} 570 -550 0 0 {name=p7 lab=vout}
-C {devices/code_shown.sym} 95 -770 0 0 {name=MODEL only_toplevel=false
+C {devices/code_shown.sym} 165 -760 0 0 {name=MODEL only_toplevel=false
 format="tcleval( @value )"
 value="
 .lib cornerCAP.lib cap_typ
-.lib cornerMOSlv.lib mos_tt_mismatch
+.lib cornerMOSlv.lib mos_tt_stat
 "}
-C {devices/code_shown.sym} 25 -1260 0 0 {name=NGSPICE only_toplevel=false 
+C {launcher.sym} 430 -635 0 0 {name=h5
+descr="load waves" 
+tclcommand="xschem raw_read $netlist_dir/output_file.raw ac"
+}
+C {two_stage_OTA.sym} 310 -550 0 0 {name=x1}
+C {devices/code_shown.sym} 755 -1030 0 0 {name=NGSPICE2 only_toplevel=false 
 value="
+.param mm_ok=1
+.param mc_ok=1
+
 .control
   let run = 1
-  let mc_runs = 10
+  let mc_runs = 100
   set curplot = new
   set scratch = $curplot
   dowhile run <= mc_runs
     reset
-    dc temp 70 0 5
+    dc temp 0 70 1
     set run = $&run
     set dc = $curplot
     setplot $scratch
@@ -89,9 +97,6 @@ value="
   write ota_testbench_mc_mis.raw \{$scratch\}.allv \{$scratch\}.mytemp1
 .endc
 
+
+
 "}
-C {launcher.sym} 430 -635 0 0 {name=h5
-descr="load waves" 
-tclcommand="xschem raw_read $netlist_dir/output_file.raw ac"
-}
-C {two_stage_OTA.sym} 310 -550 0 0 {name=x1}
