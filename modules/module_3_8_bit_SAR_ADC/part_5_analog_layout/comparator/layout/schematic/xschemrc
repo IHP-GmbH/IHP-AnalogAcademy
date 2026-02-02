@@ -1,0 +1,19 @@
+# xschemrc - Custom configuration file for xschem
+# This file sources another xschemrc file from a known location
+
+# Source the base configuration from a known location
+source $::env(PDK_ROOT)/$::env(PDK)/libs.tech/xschem/xschemrc
+
+# (Optional) Add any custom overrides or extensions below
+# set xschem_library_path /home/user/my_libs
+# set xschem_gui_font "Monospace 10"
+
+#### include skywater libraries. Here I use [pwd]. This works if I start xschem from here.
+###only if you dont have this setup already ### 
+###append XSCHEM_LIBRARY_PATH :[file dirname [info script]]
+
+
+#### Add custom libraries (directories with .lib files)
+append XSCHEM_LIBRARY_PATH :$PDK_ROOT/ihp-sg13g2/libs.tech/xschem
+append XSCHEM_LIBRARY_PATH :../schematic/
+
