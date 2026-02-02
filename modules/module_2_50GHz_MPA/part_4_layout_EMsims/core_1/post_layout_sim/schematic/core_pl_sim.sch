@@ -1,6 +1,6 @@
 <Qucs Schematic 25.1.2>
 <Properties>
-  <View=1129,-114,2870,838,1.23109,0,0>
+  <View=870,-163,3326,838,1.23109,0,0>
   <Grid=10,10,1>
   <DataSet=core_pl_sim.dat>
   <DataDisplay=core_pl_sim.dpl>
@@ -22,7 +22,6 @@
   <Vdc V1 1 1920 320 18 -26 0 1 "1.65V" 1>
   <GND * 1 2120 280 0 0 0 0>
   <SpiceLib SpiceLib1 1 1880 -60 -12 16 0 0 "/home/pedersen/IHP-Open-PDK/ihp-sg13g2/libs.tech/xyce/models/cornerHBT.lib" 1 "hbt_typ" 1>
-  <.SW SW3 1 1180 -40 0 61 0 0 "HB1" 1 "lin" 1 "y" 1 "0.0005" 1 "0.005" 1 "50" 1>
   <R R5 1 2120 190 15 -26 0 1 "50 Ohm" 1 "26.85" 0 "0.0" 0 "0.0" 0 "26.85" 0 "US" 0>
   <SpicePar SpicePar1 1 1360 -30 -28 16 0 0 "y=1" 1>
   <C C15 1 1990 100 -26 17 0 0 "160 fF" 1 "" 0 "neutral" 0>
@@ -43,6 +42,7 @@
   <GND * 1 1720 440 0 0 0 0>
   <R R6 1 1220 350 15 -26 0 1 "50 Ohm" 1 "26.85" 0 "0.0" 0 "0.0" 0 "26.85" 0 "european" 0>
   <SPfile X1 1 1660 310 -26 -68 0 0 "/home/pedersen/projects/IHP-AnalogAcademy/modules/module_2_50GHz_MPA/part_4_layout_EMsims/core_1/openems/output/run_core_50ghz_mpa_data/run_core_50ghz_mpa.s4p" 0 "rectangular" 0 "linear" 0 "open" 0 "4" 0>
+  <.SW SW3 1 1180 -40 0 61 0 0 "HB1" 1 "lin" 1 "y" 1 "0.0005" 1 "0.004" 1 "50" 1>
 </Components>
 <Wires>
   <1780 100 1780 130 "" 0 0 0 "">

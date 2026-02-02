@@ -12,7 +12,7 @@ ypos2=2
 divy=5
 subdivy=4
 unity=1
-x1=-0.22184875
+x1=0
 
 divx=5
 subdivx=8
@@ -34,41 +34,42 @@ autoload=0
 
 sim_type=ac
 
-y2=33.964
-y1=-136.006
+y2=-0.042
+y1=-160
 color=4
 node=ph(vout)
-x2=-0.22184875}
+x2=7}
 B 2 680 -1295 1480 -895 {flags=graph
-y1=27
+y1=-8.7
 y2=71
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-0.22184875
+x1=0
 
 divx=5
 subdivx=8
 xlabmag=1.0
 ylabmag=1.0
-node=av
-color=4
 dataset=-1
 unitx=1
 logx=1
 logy=0
-x2=-0.22184875}
+x2=7
+sim_type=ac
+color=4
+node="vout db20()"}
 B 2 1535 -1295 2335 -895 {flags=graph
-y1=37
-y2=86
+y1=21
+y2=67
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-0.22184875
+x1=0
 
 divx=5
 subdivx=8
@@ -80,18 +81,18 @@ dataset=-1
 unitx=1
 logx=1
 logy=0
-x2=-0.22184875
+x2=7
 color=4
 node=cmrr}
 B 2 1525 -875 2325 -475 {flags=graph
-y1=0.055
+y1=-21
 y2=30
 ypos1=0
 ypos2=2
 divy=5
 subdivy=1
 unity=1
-x1=-0.22184875
+x1=0
 
 divx=5
 subdivx=8
@@ -103,9 +104,9 @@ dataset=-1
 unitx=1
 logx=1
 logy=0
-x2=-0.22184875
+x2=7
 color=4
-node=psrr}
+node="psrr_linear db20()"}
 N 775 -265 775 -235 {
 lab=vp}
 N 1010 -265 1010 -235 {
@@ -238,7 +239,7 @@ op
 ac dec 100 1 10e6 
 save all
 let Av = db(v(vout))
-let PSRR = db(v(vout2)/v(VDDac))
+let PSRR_linear = v(vout2)/v(VDDac)
 let CMRR = db((v(vout)/v(vp))/(v(vout1)/v(vp)))
 let phase = 180*cph(vout)/pi
 write output_file.raw 
