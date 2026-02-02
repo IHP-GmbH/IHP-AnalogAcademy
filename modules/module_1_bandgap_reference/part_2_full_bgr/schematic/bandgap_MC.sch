@@ -162,11 +162,14 @@ N -630 -795 -575 -795 {
 lab=#net2}
 N -630 -735 -575 -735 {
 lab=GND}
-C {devices/code_shown.sym} 20 -403.828125 0 0 {name=NGSPICE only_toplevel=false 
+C {devices/code_shown.sym} -980 -463.828125 0 0 {name=NGSPICE only_toplevel=false 
 value="
+.param mm_ok=1
+.param mc_ok=1
+
 .control
   let run = 1
-  let mc_runs = 200
+  let mc_runs = 100
   set curplot = new
   set scratch = $curplot
   dowhile run <= mc_runs
@@ -186,12 +189,12 @@ value="
 .endc
 
 "}
-C {devices/code_shown.sym} -450 -445 0 0 {name=MODEL only_toplevel=true
+C {devices/code_shown.sym} -980 -595 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
 .lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
 .lib $::SG13G2_MODELS/cornerRES.lib res_typ
-.lib cornerMOSlv.lib mos_tt_mismatch"}
+.lib cornerMOSlv.lib mos_tt_stat"}
 C {sg13g2_pr/sg13_lv_nmos.sym} -700 -765 2 0 {name=M8
 l=10u
 w=150n
@@ -324,3 +327,11 @@ l=18.195e-6
 m=1
 spiceprefix=X}
 C {two_stage_OTA.sym} -260 -695 0 0 {name=x1}
+C {devices/gnd.sym} 760 -370 2 0 {name=l6 lab=GND}
+C {sg13g2_pr/ptap1.sym} 760 -340 0 0 {name=R4
+model=ptap1
+spiceprefix=X
+w=100.78e-6
+l=100.78e-6
+}
+C {sg13g2_pr/sub.sym} 760 -310 0 0 {name=l7 lab=sub!}

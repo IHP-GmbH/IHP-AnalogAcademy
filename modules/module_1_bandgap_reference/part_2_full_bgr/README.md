@@ -67,7 +67,7 @@ First, we will build the core of the bandgap reference.
 As shown here, the setup is quite basic. You can adjust it to your needs, as long as the proper connections are maintained. The new component introduced is the RPPD resistors, which can be found in the components library under the PDK directory. Ensure the device sizes match those shown in the image, and don't forget to add a voltage source to supply VDD.
 
 
-### Verilog-A Model for the Differential Amplifier
+### Verilog-A Model for the Differential Amplifier (Outdated)
 At this point we want to introduce the concept of an ideal amplifier. We will create this in Verilog A. Verilog-A allows for the behavioral modeling of analog circuits, enabling efficient testing and simulation. The `openvaf` compiler is used to convert the Verilog-A description into a format usable by simulation tools.
 
 #### Creating the Verilog-A Model
@@ -440,6 +440,7 @@ value="
 From the written raw file the output is then plotted in python to extract the following result
 
 <p align="center"> <img src=".media/monte_carlo.png" width="700" height="500" /> </p>
+
 
 
 
