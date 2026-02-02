@@ -1,0 +1,3 @@
+#!/bin/bash
+run_palace config.json
+combine_snp
