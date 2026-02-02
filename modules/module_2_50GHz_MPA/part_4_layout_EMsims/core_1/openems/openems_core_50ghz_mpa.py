@@ -153,3 +153,44 @@ snp_name = os.path.join(sim_path, model_basename + '.s' + str(num_ports) + 'p')
 utilities.write_snp(s_params, f, snp_name)
 
 print('Created S-parameter output file at ', snp_name)
+
+
+# ------------------ optional data plots -----------------------------
+
+
+def dB(value):
+    value = np.asarray(value, dtype=np.complex128)
+    return 20.0*np.log10(np.abs(value))        
+
+def phase(value):
+    value = np.asarray(value, dtype=np.complex128)
+    return np.angle(value, deg=True) 
+
+def S(i,j):
+    # get S-params from zero-based data array
+    return s_params[i-1, j-1]
+
+
+print('\nStarting plots')
+
+fig, axis = plt.subplots(num="S11", tight_layout=True)
+axis.plot(f/1e9, dB(S(1,1)), 'k-',  linewidth=2, label='dB(S11)')
+axis.grid()
+axis.set_xmargin(0)
+axis.set_xlabel('Frequency (GHz)')
+axis.set_ylabel('S (dB)')
+axis.set_title("Input matching")
+axis.legend()
+
+fig, axis = plt.subplots(num="S31", tight_layout=True)
+axis.plot(f/1e9, dB(S(2,1)), 'k-',  linewidth=2, label='dB(S21)')
+axis.plot(f/1e9, dB(S(3,1)), 'r--', linewidth=2, label='dB(S31)')
+axis.grid()
+axis.set_xmargin(0)
+axis.set_xlabel('Frequency (GHz)')
+axis.set_ylabel('S (dB)')
+axis.set_title("Transmission")
+axis.legend()
+
+# show all plots
+plt.show()
