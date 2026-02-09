@@ -466,7 +466,7 @@ After saving, the schematic can be used as a reusable subcircuit block in higher
   <img src=".media/FINAL_BLOCK.png" width="500" height="400" /> 
 </p>
 <p align="center"> 
-  <img src=".media/FINAL_BLOCK_Settings.png" width="500" height="400" /> 
+  <img src=".media/FINAL_BLOCK_Settings.png" width="800" height="650" /> 
 </p>
 
 
