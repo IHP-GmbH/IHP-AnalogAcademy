@@ -381,12 +381,6 @@ Next, you will connect the S-parameter data for the core to your schematic. This
 
 At this point, you are ready to simulate the behavior of the circuit. Once the simulation is complete, extract the data for the I/O currents and voltages, as described in the previous module. You can plot the data using the methods outlined in the previous steps. The Jupyter Lab files for this can be found in the **art_4_layout_EMsims/data_processing** folder.
 
-For this circuit, the behavior with the core implemented is shown in the following plot:
-
-<p align="center"> 
-  <img src=".media/Av_vs_IP_core.png" width="500" height="500" /> 
-</p>
-
 ### Alternative Implementation with Subcircuit and Lumped Model
 
 In the previous example, the S-parameter files were inserted directly using an S-parameter component in Qucs. While this is simple, it can sometimes lead to simulation convergence problems, especially for wideband or high-order EM data. An alternative and more stable approach is to replace the raw S-parameter block with a fitted lumped SPICE model generated from the same data.
@@ -471,6 +465,11 @@ After saving, the schematic can be used as a reusable subcircuit block in higher
 <p align="center"> 
   <img src=".media/FINAL_BLOCK.png" width="500" height="400" /> 
 </p>
+<p align="center"> 
+  <img src=".media/FINAL_BLOCK_Settings.png" width="500" height="400" /> 
+</p>
+
+
 
 ---
 
