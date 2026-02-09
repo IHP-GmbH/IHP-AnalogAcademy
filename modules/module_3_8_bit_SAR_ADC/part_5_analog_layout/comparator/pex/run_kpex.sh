@@ -5,9 +5,6 @@ set -e
 #                        ⬇⬇⬇ USER CONFIGURATION ⬇⬇⬇                         #
 ###############################################################################
 
-# Activate Python environment (adjust this path to your Python venv activate script) Or if you python version is >3.12 ignore asuming klayout_pex is installed
-PYTHON_ENV="$HOME/misc/klayout_pex/bin/activate" 
-# Example: /home/username/misc/klayout_pex/bin/activate
 
 # Path to Magic executable used by kpex (adjust if installed elsewhere)
 KPEX_MAGIC_EXE="$HOME/.local/bin/magic" 
@@ -16,7 +13,7 @@ KPEX_MAGIC_EXE="$HOME/.local/bin/magic"
 #Path to symbol
 SYM_DIR="./DIFF_COMPARATOR.sym"       # Asuming you have a symbol for the DUT
 
-LAYOUT_DIR="../layout/DIFF_COMPARATOR.gds"        # Path to the GDS file
+LAYOUT_DIR="../layout/DIFF_COMPARATOR_flat.gds"        # Path to the GDS file
 
 # Important: Path to your PDK root directory must be set externally in env variable PDK_ROOT, otherwise give absolute path
 PDK_NAME="ihp_sg13g2"         # Your PDK name (must match PDK_ROOT contents)
@@ -29,11 +26,6 @@ SCHEMATIC="../layout/lvs_netlist/DIFF_COMPARATOR.spice" # Spicefile of the compa
 ##############################################################################################################################################################
 
 
-# Check if required files exist before proceeding
-if [[ ! -f "$PYTHON_ENV" ]]; then
-  echo "[ERROR] Python environment activate script not found: $PYTHON_ENV"
-  exit 1
-fi
 
 if [[ ! -x "$KPEX_MAGIC_EXE" ]]; then
   echo "[ERROR] Magic executable not found or not executable: $KPEX_MAGIC_EXE"
@@ -51,9 +43,6 @@ if [[ ! -f "$MAGICRC" ]]; then
   exit 1
 fi
 
-# Activate Python virtual environment
-echo "[INFO] Activating Python environment..."
-source "$PYTHON_ENV"
 
 echo "[INFO] Using MAGIC executable: $KPEX_MAGIC_EXE"
 

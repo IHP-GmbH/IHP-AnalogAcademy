@@ -3,3 +3,4 @@ numpy
 matplotlib
 scienceplots
 jupyterlab
+scikit-rf

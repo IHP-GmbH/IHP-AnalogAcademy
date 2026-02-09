@@ -37,7 +37,7 @@ The primary objective of this part is to create a workflow for EM simulation.
 Under the following module you will find the layout of the core used for this MPA, i the following location 
 
 ```
-core_1/layout_gds
+em_components/core_1/layout_gds
 
 ```
 The layout can be seen Below:
@@ -72,7 +72,7 @@ More about this later...
 The folder located at:
 
 ```
-`IHP-AnalogAcademy/modules/module_2_50GHz_MPA/part_4_layout_EMsims/core_1/openems`
+`IHP-AnalogAcademy/modules/module_2_50GHz_MPA/part_4_layout_EMsims/em_components/core_1/openems`
 ```
 contains the following components:
 
@@ -387,12 +387,121 @@ For this circuit, the behavior with the core implemented is shown in the followi
   <img src=".media/Av_vs_IP_core.png" width="500" height="500" /> 
 </p>
 
-#### Step 5: DC Bias Issue and T-Connector Layout
+### Alternative Implementation with Subcircuit and Lumped Model
 
-In the next part of the module, you will find a layout for a **T-connector**, where you can explore its implementation and simulation. This part presented some challenges because **Xyce** had difficulty defining the DC operating points. As seen in the schematic, the solution was to place extremely large resistors on ports 1 and 2 to set proper biasing for the simulator:
+In the previous example, the S-parameter files were inserted directly using an S-parameter component in Qucs. While this is simple, it can sometimes lead to simulation convergence problems, especially for wideband or high-order EM data. An alternative and more stable approach is to replace the raw S-parameter block with a fitted lumped SPICE model generated from the same data.
+
+This method uses vector fitting to approximate the S-parameter response with a rational transfer function and exports the result as a SPICE subcircuit. The fitted model has no fixed topology and is well suited for broadband simulation.
+
+Vector fitting is performed with the **scikit-rf** Python library:  
+https://scikit-rf.readthedocs.io/en/latest/tutorials/VectorFitting.html#
+
+Reference implementation and documentation:  
+https://github.com/VolkerMuehlhaus/lumpedmodel/tree/main/vector_fit
+
+A ready-to-use fitting script is available in the course repository at:
+
+```
+IHP-AnalogAcademy/modules/module_2_50GHz_MPA/part_4_layout_EMsims/lumped_modelling/vector_fit/vectorfit_sparam.py
+```
+#### Running the Vector Fit Script
+
+The script requires:
+- The input S-parameter file (`.sNp`)
+- The number of poles used in the fit (controls model complexity and accuracy)
+
+Example:
+
+```
+python3 vectorfit_sparam.py ../../em_components/core_1/openems/output/run_core_50ghz_mpa_data/run_core_50ghz_mpa.s4p 5
+```
+
+Notes:
+- The last argument (`5` in this example) is the number of poles.
+- Higher pole count increases model accuracy but also model order and simulation cost.
+- The script generates comparison plots between original and fitted data (shown for ports 1 and 2).
+- The method supports any number of ports, even though only the first two are plotted.
+- The output is a SPICE netlist file (`*.sp`) written to the same directory as the input file.
+
+This generated SPICE file will be used as a subcircuit in Qucs.
+
+---
+
+### Using the Fitted SPICE Model as a Subcircuit in Qucs
+
+1. **Create a new schematic**  
+   Create and save a new schematic that will serve as the subcircuit block.
+
+2. **Insert SPICE netlist block**
+   - Go to: `Components → File Components`
+   - Place a **SPICE netlist** component.
+   - Double-click to open its properties.
+   - Assign a part name.
+   - In the *File* field, browse to the generated `.sp` file.
+
 <p align="center"> 
-  <img src=".media/DC_bias_problem.png" width="500" height="400" /> 
+  <img src=".media/SPICEBLOCK.png" width="500" height="400" /> 
 </p>
 
+3. **Assign SPICE nodes**
+   - In the SPICE net nodes section, use **Add >>** to include all nodes.
+   - Confirm with OK.
+
+4. **Add subcircuit ports**
+   - Go to: `Components → Lumped Components`
+   - Place a **Subcircuit Port** for each SPICE node.
+   - Connect each port to the corresponding node of the SPICE block.
+   - Edit each port to set meaningful names and correct pin numbers.
+
+5. **Reference node**
+   - A reference (Ref) port is also created.
+   - Connect this port to ground.
+
+<p align="center"> 
+  <img src=".media/PORTED_BLOCK.png" width="500" height="400" /> 
+</p>
+
+6. **Create the custom symbol**
+   - Open: `File → Edit Circuit Symbol`
+   - Draw the symbol outline and place pins as desired.
+   - Save the symbol.
+
+After saving, the schematic can be used as a reusable subcircuit block in higher-level schematics.
+
+<p align="center"> 
+  <img src=".media/FINAL_BLOCK.png" width="500" height="400" /> 
+</p>
+
+---
+
+### Important Naming Requirement
+
+The scikit-rf fitting script generates SPICE subcircuits with the default name:
+
+```
+.SUBCKT s_equivalent
+```
+
+If multiple fitted EM models are used in the same simulation, this name must be made unique in each generated SPICE file. For example:
+
+```
+.SUBCKT s_equivalent_core
+.SUBCKT s_equivalent_tconn
+.SUBCKT s_equivalent_1
+```
+ Note to do this navigate to the fitted .sp file and edit the file to Rename both the `.SUBCKT` line and the corresponding `.ENDS` line consistently.
+ 
+ 
+---
+
+### Example Testbench Location
+
+An example compression point testbench using fitted EM models for the input T-connection and BJT core is available at:
+
+```
+IHP-AnalogAcademy/modules/module_2_50GHz_MPA/part_4_layout_EMsims/em_components/T_connection_2/post_layout_sim/schematic/Tcon_post_sim.sch
+```
+ 
+ 
 ## Final Steps
 At this stage, the reader is encouraged to finish the layout by creating corresponding layouts for each component and EM simulating them accordingly.
