@@ -1,0 +1,19 @@
+** sch_path: /home/pedersen/projects/IHP-AnalogAcademy/modules/module_3_8_bit_SAR_ADC/part_5_layout/comparator/layout/DIFF_COMPARATOR/schematic_mod/DIFF_COMPARATOR.sch
+.SUBCKT DIFF_COMPARATOR vdd gnd v+ v- clk out- out+ vbias
+*.PININFO vdd:B gnd:B v+:I v-:I clk:I out-:O out+:O vbias:I
+M2 net3 v+ net1 well sg13_lv_pmos w=8u l=200n ng=2 m=4
+M1 net2 v- net1 well sg13_lv_pmos w=8u l=200n ng=2 m=4
+M4 out- net2 vdd well sg13_lv_pmos w=8u l=0.200u ng=2 m=1
+M5 out+ net3 vdd well sg13_lv_pmos w=8u l=0.200u ng=2 m=1
+M11 gnd net3 out+ sub sg13_lv_nmos w=4.0u l=0.200u ng=2 m=1
+M12 gnd net2 out- sub sg13_lv_nmos w=4.0u l=0.200u ng=2 m=1
+M6 gnd net2 net3 sub sg13_lv_nmos w=4.0u l=0.200u ng=1 m=1
+M10 gnd clk net3 sub sg13_lv_nmos w=4.0u l=0.200u ng=1 m=1
+M7 gnd clk net2 sub sg13_lv_nmos w=4.0u l=0.200u ng=1 m=1
+M8 gnd net3 net2 sub sg13_lv_nmos w=4.0u l=0.200u ng=1 m=1
+R1 vdd well ntap1 A=153.76e-13 P=99.2e-06
+M3 gnd gnd gnd sub sg13_lv_nmos w=4.0u l=0.200u ng=1 m=4
+R2 gnd sub ptap1 A=113.76e-13 P=75.84e-06
+M13 net1 clk net4 well sg13_lv_pmos w=18u l=0.3u ng=4 m=1
+M9 net4 vbias vdd well sg13_lv_pmos w=18u l=0.3u ng=4 m=1
+.ENDS
