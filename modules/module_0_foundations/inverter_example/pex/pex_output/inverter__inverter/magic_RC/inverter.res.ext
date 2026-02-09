@@ -1,0 +1,28 @@
+scale 1000 1 0.5
+rnode "Gnd.t1" 0 0 29 -462 0
+rnode "Gnd.t0" 0 0 112 -462 0
+rnode "Gnd.n0" 0 0 62 -754 0
+rnode "Gnd" 0 0 20 -732 0
+resist "Gnd" "Gnd.n0" 0.0257609
+resist "Gnd.n0" "Gnd.t1" 6.29433
+resist "Gnd.n0" "Gnd.t0" 1079.2
+rnode "Vout.t1" 0 0 195 311 0
+rnode "Vout.t0" 0 0 195 -462 0
+rnode "Vout" 0 0 266 -211 0
+resist "Vout" "Vout.t1" 3.28762
+resist "Vout" "Vout.t0" 6.19274
+rnode "Vdd" 0 0 -205 318 0
+rnode "Vdd.t0" 0 0 29 379 0
+rnode "Vdd.n0" 0 0 -153 379 0
+rnode "Vdd.n1" 0 0 -153 379 0
+rnode "ntap1_0.well" 0 0 112 209 0
+resist "Vdd.n0" "Vdd" 0.0476667
+resist "Vdd.n0" "Vdd.t0" 3.15328
+resist "ntap1_0.well" "Vdd.n1" 4.25
+resist "Vdd.n1" "Vdd.n0" 8.5
+resist "Vdd.n1" "Vdd" 8.51467
+rnode "Vin.t0" 0 0 111 -158 0
+rnode "Vin" 0 0 95 -213 0
+resist "Vin" "Vin.t0" 7.52198
+device msubckt sg13_lv_nmos 67 -562 68 -561  "Gnd.t0" "Vin.t0" 180 0 "Gnd.t1" 200 13600,536 "Vout.t0" 200 13600,536
+device msubckt sg13_lv_pmos 67 9 68 10  "ntap1_0.well" "Vin.t0" 180 0 "Vdd.t0" 400 27200,936 "Vout.t1" 400 27200,936

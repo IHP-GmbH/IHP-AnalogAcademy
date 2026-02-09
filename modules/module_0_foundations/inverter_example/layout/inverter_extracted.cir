@@ -1,0 +1,10 @@
+* Extracted by KLayout with SG13G2 LVS runset on : 07/07/2025 16:12
+
+.SUBCKT inverter Gnd Vout Vin Vdd
+M$1 Gnd Vin Vout \$1 sg13_lv_nmos L=0.45u W=1u AS=0.34p AD=0.34p PS=2.68u
++ PD=2.68u
+M$2 Vdd Vin Vout \$2 sg13_lv_pmos L=0.45u W=2u AS=0.68p AD=0.68p PS=4.68u
++ PD=4.68u
+R$3 \$2 Vdd ntap1 A=0.6084p P=3.12u
+R$4 \$1 Gnd ptap1 A=0.6084p P=3.12u
+.ENDS inverter

@@ -5,23 +5,45 @@ set -e
 #                        ⬇⬇⬇ USER CONFIGURATION ⬇⬇⬇                         #
 ###############################################################################
 
+# Activate Python environment (adjust this path to your Python venv activate script) Or if you python version is >3.12 ignore asuming klayout_pex is installed
+PYTHON_ENV="$HOME/misc/klayout_pex/bin/activate" 
+# Example: /home/username/misc/klayout_pex/bin/activate
 
-#Path to symbol
-SYM_DIR="./DIFF_COMPARATOR.sym"       # Asuming you have a symbol for the DUT
+# Path to Magic executable used by kpex (adjust if installed elsewhere)
+KPEX_MAGIC_EXE="$HOME/.local/bin/magic" 
+# Example: /usr/local/bin/magic or ~/.local/bin/magic
 
-LAYOUT_DIR="../layout/DIFF_COMPARATOR_flat.gds"        # Path to the GDS file
+# Cell and schematic names (do NOT include file extensions)
+SYM_DIR="../inverter.sym"          # The name of your top cell / device under test (DUT)
+#TESTBENCH_NAME="inverter_tb"  # Name of your testbench schematic (without extension)
 
-# Important: Path to your PDK root directory must be set externally in env variable PDK_ROOT, otherwise give absolute path
+# Paths relative to this script or absolute paths
+#SPICE_DIR="../simulations"    # Directory containing netlist/spice files for testbench
+LAYOUT_DIR="../layout/inverter_flat.gds"        # Directory containing layout files (.gds etc.)
+
+# Important: Path to your PDK root directory must be set externally in env variable PDK_ROOT
+
 PDK_NAME="ihp_sg13g2"         # Your PDK name (must match PDK_ROOT contents)
-MAGICRC="$PDK_ROOT/$PDK/libs.tech/magic/ihp-sg13g2.magicrc" # The magicrc file for your PDK, used during extraction
+MAGICRC="$PDK_ROOT/$PDK/libs.tech/magic/ihp-sg13g2.magicrc"
+# The magicrc file for your PDK, used during extraction
 
-SCHEMATIC="../layout/lvs_netlist/DIFF_COMPARATOR.spice" # Spicefile of the comparator from Schematic or LVS (Used for pex to perform LVS and script to organize IO)
+SCHEMATIC="../simulations/inverter.spice"
 
 ##############################################################################################################################################################
 #                       					⛔ DO NOT TOUCH BELOW THIS LINE ⛔  Unless you see clear issue with your setup :)                 				 #
 ##############################################################################################################################################################
 
 
+# Check if required files exist before proceeding
+if [[ ! -f "$PYTHON_ENV" ]]; then
+  echo "[ERROR] Python environment activate script not found: $PYTHON_ENV"
+  exit 1
+fi
+
+if [[ ! -x "$KPEX_MAGIC_EXE" ]]; then
+  echo "[ERROR] Magic executable not found or not executable: $KPEX_MAGIC_EXE"
+  exit 1
+fi
 
 if [[ ! -f "$LAYOUT_DIR" ]]; then
   echo "[ERROR] Layout GDS file not found: $LAYOUT_DIR"
@@ -34,6 +56,9 @@ if [[ ! -f "$MAGICRC" ]]; then
   exit 1
 fi
 
+# Activate Python virtual environment
+echo "[INFO] Activating Python environment..."
+source "$PYTHON_ENV"
 
 echo "[INFO] Using MAGIC executable: $KPEX_MAGIC_EXE"
 
@@ -67,8 +92,7 @@ echo "[INFO] Found extracted spice file: $spice_location"
 echo "[INFO] Reordering subcircuit pins to match original schematic..."
 echo "$spice_location"
 echo "$SCHEMATIC"
-
-python3 python/match_subckt_order.py "$spice_location" "$SCHEMATIC"
+#python3 python/match_subckt_order.py "$spice_location" "$SCHEMATIC"
 
 
 
