@@ -34,14 +34,14 @@ autoload=0
 
 sim_type=ac
 
-y2=0.029
+y2=-0.018
 y1=-160
 color=4
 node=ph(vout)
 x2=7}
 B 2 680 -1295 1480 -895 {flags=graph
-y1=-23
-y2=32
+y1=-14
+y2=30
 ypos1=0
 ypos2=2
 divy=5
@@ -60,7 +60,7 @@ logy=0
 x2=7
 color=4
 node="vout / db20()"
-}
+hcursor1_y=30.347458}
 N 775 -265 775 -235 {
 lab=vp}
 N 1010 -265 1010 -235 {
@@ -113,7 +113,7 @@ C {lab_pin.sym} 1010 -265 0 0 {name=p2 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} 775 -265 0 0 {name=p3 sig_type=std_logic lab=vp}
 C {lab_pin.sym} 190 -450 0 0 {name=p5 sig_type=std_logic lab=vp}
 C {lab_pin.sym} 190 -365 0 0 {name=p6 sig_type=std_logic lab=vm}
-C {isource.sym} 270 -260 0 0 {name=I0 value=2u}
+C {isource.sym} 270 -260 0 0 {name=I0 value=80u}
 C {gnd.sym} 270 -215 0 0 {name=l3 lab=GND}
 C {capa.sym} 530 -380 0 0 {name=Cload
 m=1

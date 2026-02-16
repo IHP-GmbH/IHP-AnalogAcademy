@@ -1,6 +1,6 @@
 # ⚠️ Disclaimer – Slides Folder
 
-The content in this folder contains **slides from the in-person Analog Academy course** held at IHP.
+The content in this folder contains **slides from the in-person Analog Academy course** hosted various places.
 
 > These slides are provided **for reference only** and are intended to **complement** the hands-on tutorials found in the `modules/` directory.
 
