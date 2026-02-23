@@ -1,11 +1,12 @@
-v {xschem version=3.4.6 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {}
 V {}
 S {}
+F {}
 E {}
 B 2 710 -550 1510 -150 {flags=graph
-y1=-0.0023
+y1=0
 y2=1.3
 ypos1=0
 ypos2=2
@@ -18,8 +19,9 @@ divx=5
 subdivx=1
 xlabmag=1.0
 ylabmag=1.0
-node=vout
-color=4
+node="vout
+vin"
+color="7 4"
 dataset=-1
 unitx=1
 logx=0
@@ -59,8 +61,8 @@ C {launcher.sym} 770 -120 0 0 {name=h5
 descr="load waves" 
 tclcommand="xschem raw_read $netlist_dir/test_inverter.raw tran"
 }
-C {inverter.sym} 390 -300 0 0 {name=x1}
 C {lab_pin.sym} 220 -300 0 0 {name=p2 sig_type=std_logic lab=Vin}
 C {gnd.sym} 320 -190 0 0 {name=l1 lab=GND}
 C {lab_pin.sym} 320 -410 0 0 {name=p4 sig_type=std_logic lab=Vdd}
 C {lab_pin.sym} 540 -300 0 1 {name=p5 sig_type=std_logic lab=Vout}
+C {inverter.sym} 390 -300 0 0 {name=x1}
