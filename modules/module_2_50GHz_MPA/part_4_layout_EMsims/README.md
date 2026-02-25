@@ -38,8 +38,8 @@ Under the following module you will find the layout of the core used for this MP
 
 ```
 em_components/core_1/layout_gds
-
 ```
+
 The layout can be seen Below:
 <p align="center"> 
   <img src=".media/core_picture_bjt.png" width="900" height="700" /> 
@@ -72,7 +72,7 @@ More about this later...
 The folder located at:
 
 ```
-`IHP-AnalogAcademy/modules/module_2_50GHz_MPA/part_4_layout_EMsims/em_components/core_1/openems`
+IHP-AnalogAcademy/modules/module_2_50GHz_MPA/part_4_layout_EMsims/em_components/core_1/openems
 ```
 contains the following components:
 
