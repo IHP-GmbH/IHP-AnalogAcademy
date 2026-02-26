@@ -10,8 +10,8 @@ module sar_logic_tb();
     reg En;
 
     // Outputs
-    wire [6:0] B;
-    wire [6:0] BN;
+    wire [7:0] B;
+    wire [7:0] BN;
     wire [7:0] D;
 
     // Instantiate the SAR Logic module
@@ -46,14 +46,85 @@ module sar_logic_tb();
         En = 1'b1;
         Op = 1'b1;
         Om = 1'b0;
-        
+
         // Apply reset again
-        #80 rst = 1'b1;
+        #100 rst = 1'b1;
         #10 rst = 1'b0;
         Op = 1'b0;
         Om = 1'b1;
 
-        #70 rst = 1'b1;
+        #50 rst = 1'b1;
+	#10 rst = 1'b0;
+        En = 1'b1;
+        Op = 1'b1;
+        Om = 1'b0;
+
+        #10 Op = 1'b0;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+
+        #50 rst = 1'b1;
+	#10 rst = 1'b0;
+        En = 1'b1;
+	Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
+
+	#10 Op = 1'b1;
+        Om = 1'b0;
+
+	#10 Op = 1'b0;
+        Om = 1'b1;
 
         // End of simulation
         #100 $finish;
