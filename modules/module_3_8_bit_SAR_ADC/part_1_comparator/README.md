@@ -159,7 +159,6 @@ As you can see, this setup closely resembles the testbench used for the simple t
 
 ```
 name=V2 value="PULSE(595e-3 605e-3 0 tr 1S 1S)"
-
 ```
 
 Looking at the model includes, we see that now have defined the mismatch model
