@@ -9,14 +9,13 @@ Before diving into the full ADC schematic, it's essential to check whether the S
 
 > ⚠️ **Note:** Make sure to copy the shared object file (`.so`) and place it relative to the testbench, just like we did before. Create a simulation folder and include it there:
 
-
+```
 ├── SAR_ADC_tb.sch
 ├── sar_adc_tutorial.sch
 ├── simulations
-
 │   └── sar_logic.so
-
 └── xschemrc
+```
 
 In this example, the wiring looks like this:
 <p align="center"> 
