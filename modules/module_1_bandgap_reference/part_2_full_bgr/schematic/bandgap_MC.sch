@@ -189,12 +189,6 @@ value="
 .endc
 
 "}
-C {devices/code_shown.sym} -980 -595 0 0 {name=MODEL only_toplevel=true
-format="tcleval( @value )"
-value="
-.lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
-.lib $::SG13G2_MODELS/cornerRES.lib res_typ
-.lib cornerMOSlv.lib mos_tt_stat"}
 C {sg13g2_pr/sg13_lv_nmos.sym} -700 -765 2 0 {name=M8
 l=10u
 w=150n
@@ -335,3 +329,9 @@ w=100.78e-6
 l=100.78e-6
 }
 C {sg13g2_pr/sub.sym} 760 -310 0 0 {name=l7 lab=sub!}
+C {devices/code_shown.sym} -950 -585 0 0 {name=MODEL1 only_toplevel=true
+format="tcleval( @value )"
+value="
+.lib $::SG13G2_MODELS/cornerCAP.lib cap_typ
+.lib $::SG13G2_MODELS/cornerRES.lib res_typ
+.lib cornerMOSlv.lib mos_tt_stat"}

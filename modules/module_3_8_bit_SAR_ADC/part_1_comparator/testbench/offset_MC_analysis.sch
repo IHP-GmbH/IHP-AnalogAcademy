@@ -102,10 +102,11 @@ footprint=1206
 device="ceramic capacitor"}
 C {gnd.sym} 460 -140 0 0 {name=l6 lab=GND}
 C {gnd.sym} 460 -300 2 0 {name=l7 lab=GND}
-C {devices/code_shown.sym} -675 -780 0 0 {name=NGSPICE1 only_toplevel=false 
+C {devices/code_shown.sym} -855 -770 0 0 {name=NGSPICE1 only_toplevel=false 
 value="
-.lib cornerCAP.lib cap_typ
-.lib cornerMOSlv.lib mos_tt_stat
+
+.param mm_ok=1
+.param mc_ok=1
 
 .control
   let run = 1
@@ -133,8 +134,7 @@ value="
 
 "}
 C {dynamic_comparator.sym} 270 -220 0 0 {name=x1}
-C {devices/code_shown.sym} -5 -580 0 0 {name=MODEL only_toplevel=false
+C {devices/code_shown.sym} -180 -755 0 0 {name=MODEL only_toplevel=true
 format="tcleval( @value )"
 value="
-.lib cornerMOSlv.lib mos_tt_stat
-"}
+.lib cornerMOSlv.lib mos_tt_mismatch"}
