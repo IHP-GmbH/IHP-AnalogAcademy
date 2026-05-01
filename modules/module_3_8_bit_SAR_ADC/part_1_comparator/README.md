@@ -180,6 +180,9 @@ The following **Ngspice** code block defines the MC analysis and provides detail
 ```
 name=NGSPICE only_toplevel=false
 value="
+.param mm_ok=1
+.param mc_ok=1
+
 .control
   let run = 1
   let mc_runs = 100
