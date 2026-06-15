@@ -1,11 +1,23 @@
-v {xschem version=3.4.6 file_version=1.2}
+v {xschem version=3.4.8RC file_version=1.3}
 G {}
 K {type=subcircuit
 format="@name @pinlist @symname"
 template="name=x1"
-}
+spice_sym_def="
+.subckt inverter Vout Vin Gnd Vdd                                                                
+X0 Vout Vin Vdd Vdd sg13_lv_pmos ad=0.68p pd=4.68u as=0.68p ps=4.68u w=2u l=0.45u                
+X1 Vout Vin Gnd Gnd sg13_lv_nmos ad=0.34p pd=2.68u as=0.34p ps=2.68u w=1u l=0.45u                
+C0 Vin Vdd 0.14482f                                                                              
+C1 Vout Vin 0.10077f                                                                             
+C2 Vout Vdd 0.13155f                                                                             
+C3 Vout Gnd 0.39245f                                                                             
+C4 Vin Gnd 0.64666f                                                                              
+C5 Vdd Gnd 0.15308f                                                                              
+.ends                                                                                            
+"}
 V {}
 S {}
+F {}
 E {}
 L 7 -70 -80 -70 -60 {}
 L 7 -150 0 -130 0 {}
