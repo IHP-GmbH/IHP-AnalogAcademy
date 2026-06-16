@@ -13,6 +13,7 @@
             <EdgeColor R="216" G="0" B="0" a="255" />
             <Primitives>
                 <LinPoly Priority="200" Elevation="1.567800e+02" NormDir="2" QtyVertices="4" Length="4.900000e-01">
+                    <Transformation />
                     <Vertex X1="-6.653500e+01" X2="-3.802000e+01" />
                     <Vertex X1="-6.653500e+01" X2="-2.102000e+01" />
                     <Vertex X1="-4.250500e+01" X2="-2.102000e+01" />
@@ -27,22 +28,26 @@
             <EdgeColor R="255" G="128" B="0" a="255" />
             <Primitives>
                 <LinPoly Priority="200" Elevation="1.649803e+02" NormDir="2" QtyVertices="3" Length="3.000000e+00">
+                    <Transformation />
                     <Vertex X1="-5.602000e+01" X2="-2.953500e+01" />
                     <Vertex X1="-5.953500e+01" X2="-2.602000e+01" />
                     <Vertex X1="-5.602000e+01" X2="-2.602000e+01" />
                 </LinPoly>
                 <LinPoly Priority="200" Elevation="1.649803e+02" NormDir="2" QtyVertices="3" Length="3.000000e+00">
+                    <Transformation />
                     <Vertex X1="-5.302000e+01" X2="-2.953500e+01" />
                     <Vertex X1="-5.302000e+01" X2="-2.602000e+01" />
                     <Vertex X1="-4.950500e+01" X2="-2.602000e+01" />
                 </LinPoly>
                 <LinPoly Priority="200" Elevation="1.649803e+02" NormDir="2" QtyVertices="4" Length="3.000000e+00">
+                    <Transformation />
                     <Vertex X1="-6.453500e+01" X2="-2.602000e+01" />
                     <Vertex X1="-6.453500e+01" X2="-2.302000e+01" />
                     <Vertex X1="-4.450500e+01" X2="-2.302000e+01" />
                     <Vertex X1="-4.450500e+01" X2="-2.602000e+01" />
                 </LinPoly>
                 <LinPoly Priority="200" Elevation="1.649803e+02" NormDir="2" QtyVertices="4" Length="3.000000e+00">
+                    <Transformation />
                     <Vertex X1="-5.602000e+01" X2="-3.602000e+01" />
                     <Vertex X1="-5.602000e+01" X2="-2.602000e+01" />
                     <Vertex X1="-5.302000e+01" X2="-2.602000e+01" />
@@ -57,6 +62,7 @@
             <EdgeColor R="208" G="208" B="208" a="20" />
             <Primitives>
                 <Box Priority="10">
+                    <Transformation />
                     <P1 X="-1.165350e+02" Y="-8.802000e+01" Z="1.698803e+02" />
                     <P2 X="7.495000e+00" Y="2.898000e+01" Z="3.198803e+02" />
                 </Box>
@@ -69,6 +75,7 @@
             <EdgeColor R="160" G="160" B="240" a="20" />
             <Primitives>
                 <Box Priority="10">
+                    <Transformation />
                     <P1 X="-1.165350e+02" Y="-8.802000e+01" Z="1.694803e+02" />
                     <P2 X="7.495000e+00" Y="2.898000e+01" Z="1.698803e+02" />
                 </Box>
@@ -81,6 +88,7 @@
             <EdgeColor R="255" G="252" B="173" a="20" />
             <Primitives>
                 <Box Priority="10">
+                    <Transformation />
                     <P1 X="-1.165350e+02" Y="-8.802000e+01" Z="1.537500e+02" />
                     <P2 X="7.495000e+00" Y="2.898000e+01" Z="1.694803e+02" />
                 </Box>
@@ -93,6 +101,7 @@
             <EdgeColor R="41" G="79" B="255" a="20" />
             <Primitives>
                 <Box Priority="10">
+                    <Transformation />
                     <P1 X="-1.165350e+02" Y="-8.802000e+01" Z="1.500000e+02" />
                     <P2 X="7.495000e+00" Y="2.898000e+01" Z="1.537500e+02" />
                 </Box>
@@ -105,6 +114,7 @@
             <EdgeColor R="1" G="224" B="255" a="20" />
             <Primitives>
                 <Box Priority="10">
+                    <Transformation />
                     <P1 X="-1.165350e+02" Y="-8.802000e+01" Z="0.000000e+00" />
                     <P2 X="7.495000e+00" Y="2.898000e+01" Z="1.500000e+02" />
                 </Box>
@@ -117,6 +127,7 @@
             <EdgeColor R="232" G="231" B="141" a="255" />
             <Primitives>
                 <Box Priority="150">
+                    <Transformation />
                     <P1 X="-6.453500e+01" Y="-2.602000e+01" Z="1.572700e+02" />
                     <P2 X="-6.403500e+01" Y="-2.302000e+01" Z="1.649803e+02" />
                 </Box>
@@ -127,6 +138,7 @@
             <EdgeColor R="118" G="90" B="46" a="255" />
             <Primitives>
                 <Box Priority="150">
+                    <Transformation />
                     <P1 X="-6.453500e+01" Y="-2.602000e+01" Z="1.572700e+02" />
                     <P2 X="-6.403500e+01" Y="-2.302000e+01" Z="1.649803e+02" />
                 </Box>
@@ -138,6 +150,7 @@
             <EdgeColor R="99" G="51" B="159" a="255" />
             <Primitives>
                 <Box Priority="0">
+                    <Transformation />
                     <P1 X="-6.428500e+01" Y="-2.452000e+01" Z="1.572700e+02" />
                     <P2 X="-6.428500e+01" Y="-2.452000e+01" Z="1.649803e+02" />
                 </Box>
@@ -148,6 +161,7 @@
             <EdgeColor R="201" G="154" B="102" a="255" />
             <Primitives>
                 <Box Priority="0">
+                    <Transformation />
                     <P1 X="-6.453500e+01" Y="-2.602000e+01" Z="1.611252e+02" />
                     <P2 X="-6.403500e+01" Y="-2.302000e+01" Z="1.611252e+02" />
                 </Box>
@@ -158,6 +172,7 @@
             <EdgeColor R="50" G="13" B="183" a="255" />
             <Primitives>
                 <Box Priority="150">
+                    <Transformation />
                     <P1 X="-4.500500e+01" Y="-2.602000e+01" Z="1.572700e+02" />
                     <P2 X="-4.450500e+01" Y="-2.302000e+01" Z="1.649803e+02" />
                 </Box>
@@ -168,6 +183,7 @@
             <EdgeColor R="49" G="88" B="163" a="255" />
             <Primitives>
                 <Box Priority="0">
+                    <Transformation />
                     <P1 X="-4.475500e+01" Y="-2.452000e+01" Z="1.572700e+02" />
                     <P2 X="-4.475500e+01" Y="-2.452000e+01" Z="1.649803e+02" />
                 </Box>
@@ -178,6 +194,7 @@
             <EdgeColor R="90" G="37" B="93" a="255" />
             <Primitives>
                 <Box Priority="0">
+                    <Transformation />
                     <P1 X="-4.500500e+01" Y="-2.602000e+01" Z="1.611252e+02" />
                     <P2 X="-4.450500e+01" Y="-2.302000e+01" Z="1.611252e+02" />
                 </Box>
@@ -188,6 +205,7 @@
             <EdgeColor R="5" G="23" B="88" a="255" />
             <Primitives>
                 <Box Priority="150">
+                    <Transformation />
                     <P1 X="-5.602000e+01" Y="-3.602000e+01" Z="1.572700e+02" />
                     <P2 X="-5.302000e+01" Y="-3.552000e+01" Z="1.649803e+02" />
                 </Box>
@@ -198,6 +216,7 @@
             <EdgeColor R="233" G="94" B="212" a="255" />
             <Primitives>
                 <Box Priority="0">
+                    <Transformation />
                     <P1 X="-5.452000e+01" Y="-3.577000e+01" Z="1.572700e+02" />
                     <P2 X="-5.452000e+01" Y="-3.577000e+01" Z="1.649803e+02" />
                 </Box>
@@ -208,6 +227,7 @@
             <EdgeColor R="171" G="178" B="205" a="255" />
             <Primitives>
                 <Box Priority="0">
+                    <Transformation />
                     <P1 X="-5.602000e+01" Y="-3.602000e+01" Z="1.611252e+02" />
                     <P2 X="-5.302000e+01" Y="-3.552000e+01" Z="1.611252e+02" />
                 </Box>
