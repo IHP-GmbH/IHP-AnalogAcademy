@@ -12,7 +12,7 @@ ypos2=2
 divy=5
 subdivy=4
 unity=1
-x1=0
+x1=0.7
 
 divx=5
 subdivx=8
@@ -34,13 +34,13 @@ autoload=0
 
 sim_type=ac
 
-y2=33.964
-y1=-136.006
+y2=-0.042
+y1=-160
 color=4
 node=ph(vout)
-x2=7}
+x2=7.7}
 B 2 680 -1295 1480 -895 {flags=graph
-y1=0.024
+y1=-8.7
 y2=71
 ypos1=0
 ypos2=2
@@ -272,7 +272,7 @@ device="ceramic capacitor"}
 C {gnd.sym} 1475 -180 0 0 {name=l10 lab=GND}
 C {iopin.sym} 1565 -255 0 0 {name=p12 lab=vout1}
 C {gnd.sym} 335 325 0 0 {name=l4 lab=GND}
-C {lab_pin.sym} 180 285 0 0 {name=p11 sig_type=std_logic lab=vm}
+C {lab_pin.sym} 180 285 0 0 {name=p11 sig_type=std_logic lab=vm2}
 C {isource.sym} 260 390 0 0 {name=I2 value=80u}
 C {gnd.sym} 260 435 0 0 {name=l11 lab=GND}
 C {iopin.sym} 610 240 0 0 {name=p13 lab=vout2}
