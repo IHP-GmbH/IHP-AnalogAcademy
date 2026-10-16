@@ -1,7 +1,12 @@
-# StrongARM Latch Workshop Slides
+# StrongARM Latch Design
 
-[Strong ARM Latch – Workshop (PDF)](StrongArmLatch-workshop.pdf), by Krzysztof Herman, accompanies [Module 4 – StrongARM Latch Design](../../modules/module_4_strong_arm_latch/README.md).
+[Module 4 – StrongARM Latch Design](../../modules/module_4_strong_arm_latch/README.md) contains the learning material as six numbered Markdown tutorials:
 
-The workshop can be delivered in **1 or 2 days depending on the audience's level**. Experienced participants can use the condensed one-day path; participants newer to the tools can follow the guided two-day path. Both schedules are in the module overview.
+1. [Architecture and schematic capture](../../modules/module_4_strong_arm_latch/part_1_schematic/README.md)
+2. [Simulation and characterization](../../modules/module_4_strong_arm_latch/part_2_simulations/README.md)
+3. [Matched layout](../../modules/module_4_strong_arm_latch/part_3_layout/README.md)
+4. [Physical verification](../../modules/module_4_strong_arm_latch/part_4_physical_verification/README.md)
+5. [Parasitic extraction and post-layout simulation](../../modules/module_4_strong_arm_latch/part_5_pex/README.md)
+6. [Chip finishing and design improvements](../../modules/module_4_strong_arm_latch/part_6_chip_finishing/README.md)
 
-The slide deck is taken from `StrongArmLatch-workshop.pdf` in the supplied `mixdes-workshop` source material. Use the module tutorials for checkout-relative paths and hands-on instructions; some slide examples use the original author's local project paths.
+The module can be delivered in **1 or 2 days depending on the audience's level**. See the module overview for setup, prerequisites, and schedules.

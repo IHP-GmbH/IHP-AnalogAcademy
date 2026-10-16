@@ -34,11 +34,11 @@ This course provides a hands-on introduction to analog, RF, and mixed-signal IC 
 | 3      | 8-bit SAR ADC                     |
 | 4      | [StrongARM Latch Design](modules/module_4_strong_arm_latch/README.md) – 1 or 2 days |
 
-Modules 0–3 form the original course sequence, combining theory with practical exercises. **Module 4 is a standalone workshop that can be delivered in 1 or 2 days depending on the audience's level:** one day for experienced participants, or two days for participants who need more guided practice with the design flow. It requires the tool setup from Module 0 and basic electronics knowledge.
+Modules 0–3 form the original course sequence, combining theory with practical exercises. **Module 4 is a standalone design module that can be delivered in 1 or 2 days depending on the audience's level:** one day for experienced participants, or two days for participants who need more guided practice with the design flow. It requires the tool setup from Module 0 and basic electronics knowledge.
 
 ## Getting the StrongARM Latch Design
 
-The actual design is included in `modules/module_4_strong_arm_latch/IHP__CMP7345` as a Git submodule of [KrzysztofHerman/IHP__CMP7345](https://github.com/KrzysztofHerman/IHP__CMP7345).
+The actual design is included in `modules/module_4_strong_arm_latch/IHP__CMP7345` as a Git submodule of [IHP__CMP7345](https://github.com/KrzysztofHerman/IHP__CMP7345).
 
 From an existing academy checkout, run:
 
@@ -52,4 +52,4 @@ For a new checkout, use:
 git clone --recurse-submodules https://github.com/KrzysztofHerman/IHP-AnalogAcademy.git
 ```
 
-Follow the [Module 4 setup and schedule](modules/module_4_strong_arm_latch/README.md) before opening its schematics. The [StrongARM workshop slides](slides/StrongARM_Latch/README.md) complement the written exercises.
+Follow the [Module 4 setup and schedule](modules/module_4_strong_arm_latch/README.md) before opening its schematics. Its six numbered Markdown parts contain the circuit explanations, simulation listings, layout figures, verification steps, and finishing exercises.

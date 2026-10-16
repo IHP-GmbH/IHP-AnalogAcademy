@@ -2,9 +2,9 @@
 
 The **StrongARM latch** is a clocked dynamic comparator: it turns a small differential input voltage into a logic-level decision through positive feedback. This module follows the comparator from architecture and schematic capture to simulation, matched layout, physical verification, and post-layout analysis using the **IHP Open PDK**.
 
-**This module can be delivered in 1 or 2 days depending on the level of the audience.** It can be taken as a standalone workshop after [Module 0 – Foundations](../module_0_foundations/README.md).
+**This module can be delivered in 1 or 2 days depending on the level of the audience.** It can be taken independently after [Module 0 – Foundations](../module_0_foundations/README.md).
 
-The teaching material is adapted from Krzysztof Herman's *Strong ARM Latch – Workshop* and *SRLatch Manual: Self-Paced Design of a StrongARM Comparator with Open-Source Tools*, supplied through the `mixdes-workshop` symbolic link. The actual implementation is [IHP__CMP7345](https://github.com/KrzysztofHerman/IHP__CMP7345), included in this directory as a Git submodule. The written tutorials and figures are stored in the academy repository and can be used independently of that local workshop link.
+The actual implementation is [IHP__CMP7345](https://github.com/KrzysztofHerman/IHP__CMP7345), included in this directory as a Git submodule. Work through the numbered parts to understand what to build, how to simulate it, and how each schematic and layout decision affects the comparator's behavior.
 
 ## Learning Objectives
 
@@ -22,14 +22,30 @@ By the end of the module, you should be able to:
 |------|-------|------------|
 | [1](part_1_schematic/README.md) | Architecture, sizing, and schematic capture | Xschem |
 | [2](part_2_simulations/README.md) | Transient, mismatch, process variation, and kickback | Xschem, ngspice |
-| [3](part_3_layout/README.md) | Matched layout, DRC, and LVS | KLayout, IHP verification decks |
-| [4](part_4_pex_and_finishing/README.md) | PEX, post-layout comparison, and chip finishing | KLayout-PEX, Magic, ngspice, KLayout |
+| [3](part_3_layout/README.md) | Matched device groups, dummies, taps, and routing | KLayout |
+| [4](part_4_physical_verification/README.md) | DRC, LVS, and connectivity debugging | KLayout, IHP verification decks |
+| [5](part_5_pex/README.md) | PEX and schematic-versus-layout comparison | KLayout-PEX, Magic, ngspice |
+| [6](part_6_chip_finishing/README.md) | Chip finishing, PVT, and design improvements | KLayout, ngspice |
 
-Use the [workshop slides](../../slides/StrongARM_Latch/README.md) alongside the tutorials.
+## Design Flow and Targets
+
+![Analog design and verification flow](.media/analog_flow_generic.png)
+
+Begin with a readable schematic and a nominal transient bench. Use mismatch, process, and kickback experiments to identify which device groups need attention. Translate the circuit into matched layout sub-blocks, establish geometric and electrical correctness with DRC/LVS, and then repeat the measurements with extracted parasitics.
+
+| Design concern | Goal of the exercise | Evidence to collect |
+|----------------|----------------------|---------------------|
+| Offset | Understand and reduce input-referred error in the low-millivolt range | Decision-threshold distribution and its mean/spread |
+| Speed | Explore high-speed operation, including hundreds-of-megahertz-class timing requirements | Clock-to-output delay versus differential input and operating conditions |
+| Power | Use a dynamic core with no intentional static current during reset | Supply-current waveform and switching energy |
+| Output validity | Reach logic-compatible levels before the next stage samples | Both output polarities, reset behavior, and retention if an output latch is added |
+| Robustness | Preserve useful decisions under mismatch, parasitics, and source loading | Statistical results, kickback plots, and pre-/post-layout comparison |
+
+These are design objectives, not guaranteed performance specifications. The supplied nominal bench runs at approximately 100 MHz; establish its baseline before increasing frequency. A change that improves one metric can worsen another, so retain comparable measurements throughout the design flow.
 
 ## Delivery Options
 
-Both formats cover the same design flow. Complete installation and submodule initialization before the workshop.
+Both formats cover the same design flow. Complete installation and submodule initialization before the first session.
 
 ### One Day – Experienced Audience
 
@@ -39,8 +55,8 @@ For participants already familiar with transistor-level analog design, Xschem/ng
 |---------|----------|
 | Morning, first session | Review architecture and sizing; inspect the supplied basic and final schematics (Part 1). |
 | Morning, second session | Run nominal transient analysis and selected mismatch, process, and kickback experiments (Part 2). |
-| Afternoon, first session | Review the supplied matched layout; run and interpret DRC/LVS (Part 3). |
-| Afternoon, second session | Compare schematic and PEX behavior; demonstrate extraction and finishing, then discuss trade-offs (Part 4). |
+| Afternoon, first session | Review the supplied matched layout; run and interpret DRC/LVS (Parts 3–4). |
+| Afternoon, second session | Compare schematic and PEX behavior; demonstrate extraction and finishing, then discuss trade-offs (Parts 5–6). |
 
 Use the provided implementation to keep the session focused on interpretation and iteration. Longer statistical sweeps and independent layout reconstruction can continue as self-paced exercises.
 
@@ -51,7 +67,7 @@ For participants with basic electronics knowledge who need more practice with th
 | Day | Morning | Afternoon |
 |-----|---------|-----------|
 | 1 | Tool check, optional RC-divider warm-up, latch operation, and guided schematic capture (Part 1). | Transient waveforms, automatic delay measurements, mismatch/process experiments, and kickback (Part 2). |
-| 2 | Construct matched sub-blocks, assemble the layout, and debug DRC/LVS (Part 3). | Extract parasitics, compare post-layout results, review chip finishing, and present observations (Part 4). |
+| 2 | Construct matched sub-blocks, assemble the layout, and debug DRC/LVS (Parts 3–4). | Extract parasitics, compare post-layout results, review chip finishing, and present observations (Parts 5–6). |
 
 ## Prerequisites and Tools
 
@@ -61,7 +77,7 @@ For participants with basic electronics knowledge who need more practice with th
 - **KLayout** with the SG13G2 technology, PCells, DRC, and LVS decks.
 - **Magic** and **KLayout-PEX (`kpex`)** for the extraction exercise; see the [KLayout-PEX repository and installation instructions](https://github.com/iic-jku/klayout-pex).
 
-The workshop uses low-voltage MOS devices, local `ptap1`/`ntap1` ties, and `dantenna`/`dpantenna` structures where required. Keep the comparator routing within **Metal1–Metal3**. The workshop also discusses portability to **CMOS5L**; the commands and models in this module use **SG13G2**.
+The design uses low-voltage MOS devices, local `ptap1`/`ntap1` ties, and `dantenna`/`dpantenna` structures where required. Keep the comparator routing within **Metal1–Metal3**. Restricting the core to this device and routing set also supports studying portability to **CMOS5L**; the commands and models in this module use **SG13G2**. Process-specific verification is required for each implementation.
 
 ## Get the Design and Set Up Paths
 
@@ -107,9 +123,9 @@ Keep a short design report with the selected schematic view, device sizes, PDK/d
 
 ## References
 
-- Krzysztof Herman, *Strong ARM Latch – Workshop* and *SRLatch Manual*, Analog Academy; source files `StrongArmLatch-workshop.tex`, `SRLatch-manual.tex`, `README.md`, and `comparison-pex.md` in the supplied `mixdes-workshop` material.
 - [CMP7345 design repository](IHP__CMP7345/README.md) and [design calculations](IHP__CMP7345/doc/Design.md).
 - B. Razavi, *The Design of a Comparator*, IEEE Solid-State Circuits Magazine, Fall 2020.
 - B. Razavi, *The StrongARM Latch [A Circuit for All Seasons]*, IEEE Solid-State Circuits Magazine, vol. 7, no. 2, pp. 12–17, Spring 2015.
+- M. J. M. Pelgrom, A. C. J. Duinmaijer, and A. P. G. Welbers, *Matching Properties of MOS Transistors*, IEEE Journal of Solid-State Circuits, vol. 24, no. 5, pp. 1433–1440, October 1989.
 - B. Wicht, T. Nirschl, and D. Schmitt-Landsiedel, *Yield and Speed Optimization of a Latch-Type Voltage Sense Amplifier*, IEEE Journal of Solid-State Circuits, vol. 39, no. 7, pp. 1148–1158, July 2004.
 - [IHP physical and design verification](https://ihp-open-pdk-docs.readthedocs.io/en/latest/verification.html) and [chip finishing](https://ihp-open-pdk-docs.readthedocs.io/en/latest/finishing/filler.html).
