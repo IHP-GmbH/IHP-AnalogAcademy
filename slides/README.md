@@ -22,3 +22,7 @@ Use these slides as:
 - A high-level overview of topics covered
 
 Do **not** rely on them as a standalone learning resource.
+
+## StrongARM Latch Workshop
+
+The [StrongARM Latch slides](StrongARM_Latch/README.md) accompany [Module 4](../modules/module_4_strong_arm_latch/README.md). This standalone workshop can be delivered in **1 or 2 days depending on the audience's level**; the module overview provides both schedules.
