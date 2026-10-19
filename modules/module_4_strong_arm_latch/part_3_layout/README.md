@@ -1,6 +1,6 @@
-# Part 3 – Matched Layout and Physical Verification
+# Part 3 – Matched Layout
 
-[Previous: Simulations](../part_2_simulations/README.md) · [Module overview](../README.md) · [Next: PEX and Finishing](../part_4_pex_and_finishing/README.md)
+[Previous: Simulations](../part_2_simulations/README.md) · [Module overview](../README.md) · [Next: Physical Verification](../part_4_physical_verification/README.md)
 
 The comparator's layout is part of its offset and timing design. Build the layout around matched device groups, balanced regenerative nodes, and a compact clock route.
 
@@ -16,6 +16,17 @@ klayout -e "$CMP7345_ROOT/layout/klayout/CMP7345.gds"
 
 For the one-day format, inspect and verify this implementation. For the two-day format, reconstruct the matched sub-blocks in your exercise layout and compare them with the supplied GDS views.
 
+KLayout provides parameterized cells, hierarchy, alignment and transformation operations, Python/Ruby scripting, and integrated verification. Use the SG13G2 PCells so device geometry is generated from process-aware parameters rather than drawing each transistor layer by hand.
+
+| Key | Action |
+|-----|--------|
+| `q` | Edit the selected object's properties. |
+| `m`, `c` | Move or copy. |
+| `a` | Align selected objects. |
+| `o` | Generate a via while using the path tool. |
+
+Create an exercise layout with the SG13G2 technology and the intended top cell. Set device width, length, and finger count in the PCell properties. Keep the hierarchy aligned with `diff_pair`, `cc_pair_nmos`, and `cc_pair_pmos` so each block can be understood and verified independently.
+
 ## Build the Matched Sub-Blocks
 
 | Block | Reference GDS under `layout/klayout/` | Main objective |
@@ -24,67 +35,90 @@ For the one-day format, inspect and verify this implementation. For the two-day 
 | NMOS cross-coupled pair | `cc_nmos_pair/cc_pair_nmos.gds` | Balanced discharge paths and node capacitances |
 | PMOS cross-coupled pair | `cc_pmos_pair/cc_pair_pmos.gds` | Symmetric regeneration and supply connections |
 
+## Differential Input Pair
+
+![Differential-pair unit-device schematic](../.media/diff_pair.png)
+
 ![Common-centroid differential-pair layout](../.media/layout_diff_pair.png)
 
-1. Start from the final schematic's unit devices and identify the active fingers and dummies.
-2. Preserve orientation, local surroundings, and matching symmetry within each pair.
-3. Add local `ptap1`/`ntap1` connections and the protection structures represented in the schematic.
-4. Assemble the input and cross-coupled pairs, then add the tail and reset devices.
-5. Route within **Metal1–Metal3**, balancing both branches' wire lengths, vias, and loading.
-6. Keep the clock route short and inspect coupling to sensitive input and regenerative nodes.
-7. Check that labels, supply connections, and sub-block interfaces agree with the final schematic.
+Each input transistor is represented by eight active unit devices of $W=1\,\mu m$, $L=0.26\,\mu m$. Their parallel combination gives 8 µm of effective width per side. Identify these active fingers separately from the surrounding dummies.
 
-Common-centroid placement helps mitigate spatial gradients; random mismatch still requires sufficient device area and statistical analysis. Symmetric placement also needs symmetric routing to produce balanced parasitics.
+1. Assign the active units to the `v+` and `v-` groups.
+2. Distribute the groups around a common centroid, with the same orientation and local spacing.
+3. Surround the active devices with the intended dummies to make edge environments more uniform. Use the dummy terminal connections in the final schematic.
+4. Route the two gate networks with similar lengths, layer usage, and via counts.
+5. Collect the drain networks into `P` and `Q` without introducing unnecessary asymmetry.
+6. Connect the shared source network to the tail and implement the local substrate connection.
 
-## Design Rule Checking (DRC)
+A common centroid means the average physical position of the active A devices equals that of the active B devices. For equal-sized units, verify:
 
-DRC checks the physical geometry against process requirements. Run it during layout construction so enclosure, spacing, contact, and routing errors are corrected early.
+$$\frac{1}{N}\sum_i(x_{A,i},y_{A,i})=
+\frac{1}{N}\sum_i(x_{B,i},y_{B,i})$$
 
-From the layout directory, the workshop flow can be expressed using the installed PDK verification script:
+This helps reject approximately linear spatial gradients. It does not eliminate random mismatch or unequal routing capacitance. Check both the geometry and the electrical paths.
 
-```bash
-cd "$CMP7345_ROOT/layout/klayout"
-python3 "$PDKPATH/libs.tech/klayout/tech/drc/run_drc.py" \
-  --path=CMP7345.gds \
-  --run_mode=deep \
-  --run_dir=drc_cmp7345 \
-  --no_density
-```
+## NMOS Cross-Coupled Pair
 
-This invocation disables density checks for early cell-level debugging. Use the [verification documentation](https://ihp-open-pdk-docs.readthedocs.io/en/latest/verification.html) and the installed script's `--help` for revision-specific options. Load the generated `.lyrdb` marker database in KLayout and inspect the highlighted geometry. Full density checking is part of the finishing exercise in Part 4.
+![NMOS cross-coupled unit-device schematic](../.media/cc_pair_nmos.png)
 
-## Layout Versus Schematic (LVS)
+![NMOS cross-coupled pair layout](../.media/layout_cc_pair_nmos.png)
 
-LVS checks whether the layout implements the intended circuit. Use the **final layout-compatible schematic**, including its hierarchy, dummies, taps, and protection devices, as the reference.
+The active devices again use eight 1 µm units per side at 0.26 µm length. Their sources connect to `P` and `Q`, while their gates and drains implement the cross-coupled output feedback.
 
-Inspect or regenerate `netlist/schematic/CMP7345-final.spice` before running LVS. The stored export has its top-level `.subckt` and `.ends` lines commented out. In your exercise copy, replace the top-level `**.subckt` line with:
+- Follow each connection from the schematic port through the unit devices before routing the crossing.
+- Balance the paths from the two outputs to the opposite gates.
+- Keep corresponding drain/source routes comparable in width, length, and via count.
+- Include the dummy and local tie structures represented in the schematic hierarchy.
 
-```spice
-.subckt CMP7345 v- v+ vss vdd clk vout2 vout1
-```
+A symmetrical-looking crossing can still connect the wrong branch. Label ports consistently and use net highlighting to trace `P`, `Q`, `vout1`, and `vout2` after assembly.
 
-Replace the corresponding `**.ends` line, immediately before the child subcircuit definitions, with `.ends CMP7345`. This gives the reference the same top-level name as the layout's `CMP7345` cell. Keep the devices, ports, and child subcircuit definitions intact. If you regenerate the reference from Xschem instead, configure its subcircuit export to provide the same interface.
+## PMOS Cross-Coupled Pair
 
-After preparing that reference, run:
+![PMOS cross-coupled unit-device schematic](../.media/cc_pair_pmos.png)
 
-```bash
-cd "$CMP7345_ROOT/layout/klayout"
-python3 "$PDKPATH/libs.tech/klayout/tech/lvs/run_lvs.py" \
-  --layout=CMP7345.gds \
-  --netlist="$CMP7345_ROOT/netlist/schematic/CMP7345-final.spice" \
-  --run_dir=lvs_cmp7345 \
-  --run_mode=flat
-```
+![PMOS cross-coupled pair layout](../.media/layout_cc_pair_pmos.png)
 
-Inspect the execution log and the generated `.lvsdb` in KLayout's netlist browser. Follow mismatches back to the relevant devices and nets. Typical comparator debugging questions are:
+Each active side uses four 1 µm units at 0.26 µm length. Place the two groups with a uniform well environment, include the intended dummies, and provide the local well connection through `ntap1`.
 
-- Are `vout1` and `vout2` connected to the intended cross-coupled branches?
-- Do parallel unit devices add up to the intended effective width?
-- Are well/substrate ties and protection structures recognized correctly?
-- Do all top-level inputs, supplies, and clock connections match?
+The source-side connections of both active branches must reach the intended supply. Check continuity through hierarchy boundaries, especially when a source port has an internal name rather than `vdd`. Keep the two output drain routes balanced because they are directly involved in regeneration.
 
-Establish connectivity with LVS before interpreting a PEX simulation. A plausible waveform by itself does not establish that the layout implements the intended schematic.
+## Local Taps and Protection Structures
+
+The final schematic explicitly represents substrate/well ties and protection devices:
+
+| Element | Purpose in the implementation |
+|---------|-------------------------------|
+| `ptap1` | Local substrate connection associated with NMOS regions |
+| `ntap1` | Local well connection associated with PMOS regions |
+| `dantenna`, `dpantenna` | Process-defined diode/protection structures represented in the circuit |
+| Dummy MOS devices | Uniform surroundings for active matched devices, with defined terminal connections |
+
+Preserve the intended electrical connections when transferring these structures into layout. Local body networks affect both device recognition and LVS, so a drawing with visually complete rings still needs an electrical check.
+
+## Assemble and Route the Comparator
+
+Place the three matched blocks in the top-level comparator, then add the tail switch and four reset switches. Check the final schematic beside the layout while routing:
+
+1. Connect the input-pair drain networks to the NMOS pair's source-side ports.
+2. Join the NMOS and PMOS drain networks into the two regenerative outputs.
+3. Complete the cross-coupling without swapping the intended output names.
+4. Connect the tail and all reset gates to a compact clock network.
+5. Route supplies and local body connections, then expose the seven top-level ports.
+
+Use **Metal1–Metal3** for the core routing. Match branch loading as well as wire appearance: a short wire on one branch and a long wire with extra vias on the other can create deterministic offset and unequal delay. Keep noisy clock routing away from sensitive inputs where practical. If shielding is used, apply it symmetrically and include the added load in extraction.
+
+## Review Before Verification
+
+| Item | What to compare |
+|------|-----------------|
+| Active device area | Unit count, width, length, fingers, and multiplicity against the final schematic |
+| Matched surroundings | Orientation, dummies, wells, taps, and distance to nearby structures |
+| Regenerative paths | Corresponding interconnect lengths, layers, vias, and output loads |
+| Reset and clock | Compact gate distribution and complete precharge connectivity |
+| Hierarchy and labels | Port names and connections at each sub-block boundary |
+
+Run DRC as you construct each block, then verify the assembled comparator with the DRC/LVS procedure in [Part 4](../part_4_physical_verification/README.md).
 
 ### Exercise Outcome
 
-Produce a matching-aware layout and keep the DRC/LVS reports with a record of any outstanding issues. Be able to explain the device placement, the purpose of the dummies and taps, and how layout asymmetry can become an electrical error.
+Produce the three matched sub-blocks and an assembled comparator layout. Be able to identify active and dummy devices, explain the centroid arrangement and local body connections, and trace the differential and clock paths before running full physical verification.

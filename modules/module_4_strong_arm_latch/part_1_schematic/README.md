@@ -6,7 +6,7 @@ The StrongARM latch combines a differential input pair with a clocked current pa
 
 ## Read the Architecture
 
-![Basic StrongARM schematic from the workshop](../.media/schem-basic.png)
+![Basic StrongARM schematic](../.media/schem-basic.png)
 
 | Devices | Role |
 |---------|------|
@@ -24,6 +24,14 @@ The StrongARM latch combines a differential input pair with a clocked current pa
 
 Incomplete reset creates a dependence on the previous decision. Unequal output loading can create a systematic preference even with nominally matched input devices.
 
+### Follow a Positive Input Difference
+
+Define the input difference as $V_{diff}=V_+-V_-$. With $V_{diff}>0$, `M1` initially conducts more strongly than `M2`, so `P` discharges faster than `Q`. This imbalance develops before the cross-coupled structure makes a large-signal decision. In the supplied basic schematic, the resulting decision drives `vout1` low and `vout2` high; the output inverter then makes `IsHigh` high.
+
+The early amplification is important for offset. An error introduced by the input pair acts before useful gain has developed. Errors introduced later by the cross-coupled pairs are partially reduced when referred back to the input. This is why matching effort should begin with the input pair, even though every pair participates in regeneration.
+
+The same mechanism also explains metastability: when the initial imbalance is very small, regeneration needs longer to produce a valid output. A single-phase clock and a compact dynamic core are attractive, but timing, offset, and disturbance of the input source must be considered together.
+
 ## Open and Capture the Schematic
 
 Use the environment variables from the [module setup](../README.md#get-the-design-and-set-up-paths):
@@ -35,11 +43,93 @@ xschem CMP7345-basic.sch
 
 Identify `P`, `Q`, `clk`, `v+`, `v-`, `vout1`, and `vout2`. Trace the reset and evaluation current paths before editing sizes. For the guided exercise, draw the core yourself and use this file as the reference.
 
-Useful Xschem shortcuts from the workshop are `q` (properties), `m` (move), `c` (copy), `Alt+R` (rotate), `Alt+F` (flip), `w` (wire), and `Shift+A` (inspect the netlist).
+Useful Xschem shortcuts are:
+
+| Key | Action |
+|-----|--------|
+| `q` | Open the selected object's properties. |
+| `m`, `c` | Move or copy a selected object. |
+| `Alt+R`, `Alt+F` | Rotate or flip a symbol. |
+| `w` | Draw a wire. |
+| `Delete` | Remove a selected object. |
+| `Shift+A` | Inspect the generated netlist. |
 
 ### Optional Tool Warm-Up
 
-For the two-day format, first draw a resistive divider with `R1` from the source to `Vdiv` and `R2` from `Vdiv` to ground. Put `C1` across `R1` and `C2` across `R2`. Run an operating-point analysis and a transient simulation with a pulsed source. Check the DC divider ratio and explain how the capacitors change the step response. This introduces sources, labels, grounding, netlisting, and waveform inspection before the latch exercise.
+For the two-day format, begin with a capacitive-resistive divider. This introduces sources, labels, grounding, netlisting, and waveform inspection before adding transistor models.
+
+1. Place `vsource`, two `res` symbols, two `capa` symbols, and `gnd` from Xschem's device library.
+2. Connect `R1` from the source node `Vin` to `Vdiv`, and `R2` from `Vdiv` to ground.
+3. Put `C1` across `R1` and `C2` across `R2`.
+4. Use `lab_wire` to name `Vin` and `Vdiv`.
+5. As an example, set `R1=R2=10k`, `C1=1n`, and `C2=2n`.
+
+With a constant input, the capacitors are open circuits and:
+
+$$V_{div,DC}=V_{in}\frac{R_2}{R_1+R_2}$$
+
+For a fast input step, the initial change follows the capacitive divider:
+
+$$\Delta V_{div}(0^+)=\Delta V_{in}\frac{C_1}{C_1+C_2}$$
+
+The complete small-signal transfer is:
+
+$$\frac{V_{div}(s)}{V_{in}(s)}=
+\frac{1/R_1+sC_1}{1/R_1+1/R_2+s(C_1+C_2)}$$
+
+For the example values, the high-frequency ratio is $1/3$, the DC ratio is $1/2$, and the settling time constant is $(R_1\parallel R_2)(C_1+C_2)=15\,\mu s$. If you instead make $R_1C_1=R_2C_2$, the ideal divider ratio becomes independent of frequency.
+
+Use a 1.2 V DC source and this control block to check the operating point:
+
+```spice
+.control
+op
+print v(Vdiv)
+.endc
+```
+
+Then set the source to `PULSE(0 1.2 1u 10n 10n 150u 300u)` and replace the control block with:
+
+```spice
+.control
+tran 1u 100u 0 10n
+plot v(Vin) v(Vdiv)
+write divider_tran.raw
+.endc
+```
+
+The final `10n` limits the internal time step so that the fast edge can be inspected. Check the approximately 0.4 V initial response and the subsequent approach to 0.6 V. For AC analysis, give the source an AC magnitude of 1 and run `ac dec 100 10 100meg`; plot the magnitude and phase of `v(Vdiv)`. This linear example shows what AC analysis can reveal before moving to the clocked, nonlinear latch.
+
+## Build the Comparator Core
+
+Create an exercise schematic in the same configured Xschem directory and use the basic schematic as a reference. Add `sg13g2_pr/sg13_lv_nmos.sym` and `sg13g2_pr/sg13_lv_pmos.sym`, then enter the dimensions in the next section.
+
+### Step 1 – Input Pair and Tail
+
+- Connect the gates of `M1` and `M2` to `v+` and `v-`.
+- Label their drains `P` and `Q`.
+- Join their sources at the tail node; connect that node to the drain of `M7`.
+- Connect the gate of `M7` to `clk` and its source to `vss`.
+- In the basic view, connect all NMOS bulk terminals to `vss`.
+
+### Step 2 – Cross-Coupled Devices
+
+Use the following connections to make the feedback explicit. The table lists **drain, gate, source, bulk** in that order:
+
+| Device | Drain | Gate | Source | Bulk |
+|--------|-------|------|--------|------|
+| `M3` | `vout1` | `vout2` | `P` | `vss` |
+| `M4` | `vout2` | `vout1` | `Q` | `vss` |
+| `M5` | `vout1` | `vout2` | `vdd` | `vdd` |
+| `M6` | `vout2` | `vout1` | `vdd` | `vdd` |
+
+The gates of the NMOS and PMOS devices on one branch are controlled by the opposite branch's output. Check these connections in the generated netlist as well as in the drawing.
+
+### Step 3 – Precharge Switches and Ports
+
+Add four PMOS switches with their gates connected to `clk` and their sources/bulks connected to `vdd`. Their drains precharge `P`, `Q`, `vout1`, and `vout2`, respectively. These switches restore internal conditions each time the clock is low.
+
+Add ports named `v+`, `v-`, `clk`, `vdd`, `vss`, `vout1`, and `vout2`. Generate a symbol using **Symbol → Make symbol from schematic**, then inspect its port names and order. Netlist a small testbench instance and compare its positional connections with the generated `.subckt` declaration.
 
 ## Starting Sizes and Trade-Offs
 
@@ -53,13 +143,32 @@ The basic CMP7345 design uses the following dimensions. Widths are the total wid
 | `M7` | 6 µm | 0.13 µm | Six gate fingers. |
 | `MS1–MS4` | 3 µm each | 0.13 µm | Three gate fingers per switch. |
 
-The workshop uses Pelgrom-style reasoning to motivate matching area:
+Pelgrom-style reasoning provides a first estimate of matching area:
 
 $$\sigma(\Delta V_{TH}) \approx \frac{A_{VTH}}{\sqrt{WL}}$$
 
+Current-factor mismatch follows a similar area dependence:
+
+$$\sigma\left(\frac{\Delta\beta}{\beta}\right)\approx\frac{A_\beta}{\sqrt{WL}}$$
+
+Use coefficients consistent with the PDK and the definition of pair mismatch. Generic technology rules of thumb are useful for intuition but do not replace the process models. At fixed length, doubling the device width reduces this first-order random mismatch estimate by $1/\sqrt{2}$ while increasing gate and junction capacitances.
+
 Larger input devices can reduce random threshold mismatch but add capacitance. A stronger tail switch can reduce delay while increasing switching disturbance. Stronger reset devices improve precharge but add clock loading. Change one group at a time and measure the effects in Part 2.
 
-The workshop's low-millivolt offset and high-speed operation are design goals. Use simulation to establish what the chosen sizes achieve under the actual load and operating conditions.
+Use the low-millivolt offset and high-speed objectives from the module overview to guide these choices, then establish actual performance by simulation. Minimum length is a useful starting point for switches; the input and regenerative pairs use longer channels here to provide matching area. Document effective width, number of fingers, and parallel multiplicity separately so that the layout and schematic remain comparable.
+
+## Preserve the Output Between Decisions
+
+The comparator's raw outputs both precharge high during reset. The output inverters in the supplied testbench therefore both return low, which removes the previous digital decision.
+
+A cross-coupled NAND SR latch can retain the result when driven by the raw active-low outputs: both latch inputs high means hold, while one low input selects a state. Verify the required polarity against the actual comparator outputs before connecting it. An output-memory exercise should check:
+
+- Correct capture of positive and negative input differences.
+- Retention through the next comparator reset phase.
+- Balanced loading of the two comparator outputs.
+- Additional comparator-to-memory delay and behavior near unresolved decisions.
+
+The provided benches use output inverters. Adding the memory element is a separate extension, and its load must be included when repeating the timing measurements.
 
 ## Move to the Layout-Compatible View
 
