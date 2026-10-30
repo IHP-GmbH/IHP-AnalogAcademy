@@ -13,7 +13,7 @@ This course is designed to guide you through the world of analog, mixed-signal, 
 
 ### Course Structure
 
-The course is divided into several modules, each designed to build upon the previous one. Each module primarily emphasizes hands-on exercises and practical applications, with brief theory sections to support your learning.
+The course is divided into several modules, each emphasizing hands-on exercises and practical applications, with brief theory sections to support your learning. Modules 0–3 form the original course sequence. Module 4 adds a standalone **StrongARM latch design module**, which can be delivered in **1 or 2 days depending on the level of the audience**.
 
 For a structured learning experience, we encourage you to follow the **slides folder** in the repository to see the course outline and the schedule for the 5-day tutorial week. The slides can be used as the primary tutorial, but keep in mind that some parts were presented live, and you may need to refer to the markdown files for additional details..
 
@@ -24,6 +24,7 @@ For a structured learning experience, we encourage you to follow the **slides fo
 - [Bandgap Reference](#module-1--bandgap-reference)
 - [50GHz Medium Power Amplifier](#module-2--50ghz-medium-power-amplifier)
 - [8-bit SAR ADC](#module-3--8-bit-sar-adc)
+- [StrongARM Latch Design](#module-4--strongarm-latch-design)
 - [Final Thoughts](#final-thoughts)
 
 
@@ -215,7 +216,7 @@ This part showcases the **iterative nature of RF design**, where component model
 
 ## Module 3 – 8-bit SAR ADC
 
-In the final module, we shift focus to **mixed-signal design** by building a simple yet functional **8-bit Successive Approximation Register (SAR) ADC**. The chosen architecture is a **synchronous SAR**. 
+In this module, we shift focus to **mixed-signal design** by building a simple yet functional **8-bit Successive Approximation Register (SAR) ADC**. The chosen architecture is a **synchronous SAR**.
 
 ---
 
@@ -278,6 +279,35 @@ This section offers a clear view of the **end-to-end data conversion**.
 
 
 
+
+## Module 4 – StrongARM Latch Design
+
+In this module, you will design a **StrongARM latch**, a dynamic comparator that uses a clocked differential pair and positive feedback to produce a digital decision. The tutorial takes the circuit from its operating principle through schematic capture, simulation, layout, and post-layout verification using the **IHP Open PDK**.
+
+**Duration: 1 or 2 days, depending on the audience's level.** The one-day format is intended for participants already comfortable with analog design and the open-source tools, using the supplied schematic and layout as starting points. The two-day format provides more guided schematic capture, simulation analysis, layout construction, and verification practice.
+
+The hands-on tutorial is organized into six Markdown parts:
+
+1. [**Architecture and schematic capture**](modules/module_4_strong_arm_latch/part_1_schematic/README.md) – reset, regeneration, transistor sizing, output retention, and the layout-compatible hierarchy in Xschem.
+2. [**Simulation and characterization**](modules/module_4_strong_arm_latch/part_2_simulations/README.md) – transient testbench construction, delay measurements, Monte Carlo control blocks, process variation, metastability, and kickback.
+3. [**Matched layout**](modules/module_4_strong_arm_latch/part_3_layout/README.md) – differential and cross-coupled pairs, common-centroid placement, dummies, taps, and symmetric routing.
+4. [**Physical verification**](modules/module_4_strong_arm_latch/part_4_physical_verification/README.md) – KLayout DRC/LVS, reference netlist preparation, and report-driven debugging.
+5. [**Parasitic extraction and post-layout simulation**](modules/module_4_strong_arm_latch/part_5_pex/README.md) – Magic-based extraction with KLayout-PEX, pin mapping, and schematic-versus-PEX comparisons.
+6. [**Chip finishing and design improvements**](modules/module_4_strong_arm_latch/part_6_chip_finishing/README.md) – fill, density, sealring integration, PVT characterization, and the speed/offset/kickback trade-off.
+
+Start with the [module overview and schedule](modules/module_4_strong_arm_latch/README.md), then follow the numbered parts. Complete the tool setup in Module 0 before starting the design.
+
+The actual latch design, [IHP__CMP7345](https://github.com/KrzysztofHerman/IHP__CMP7345), is included as a Git submodule at `modules/module_4_strong_arm_latch/IHP__CMP7345`. Initialize it from the academy repository root:
+
+```bash
+git submodule update --init --recursive
+```
+
+For a new checkout including the design:
+
+```bash
+git clone --recurse-submodules https://github.com/KrzysztofHerman/IHP-AnalogAcademy.git
+```
 
 ## Final Thoughts
 

@@ -22,3 +22,7 @@ Use these slides as:
 - A high-level overview of topics covered
 
 Do **not** rely on them as a standalone learning resource.
+
+## StrongARM Latch Design
+
+The [StrongARM latch design tutorial](../modules/module_4_strong_arm_latch/README.md) is organized into six Markdown parts with circuit explanations, figures, and practical exercises. The module can be delivered in **1 or 2 days depending on the audience's level**; its overview provides both schedules.

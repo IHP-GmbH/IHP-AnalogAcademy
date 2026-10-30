@@ -16,7 +16,7 @@ This course provides a hands-on introduction to analog, RF, and mixed-signal IC 
 ## 📂 Navigating the Repository
 
 - **Go to the `modules/` folder**  
-  Each subfolder contains multiple markdown files under each part explaining the full tutorial for that module in detail.
+  Start with the module's `README.md`, then follow the numbered `part_*` folders for the hands-on tutorial.
 
 - **Use the `slides/` folder for reference only**  
   These are PowerPoint slides from the in-person course at IHP.  
@@ -32,5 +32,24 @@ This course provides a hands-on introduction to analog, RF, and mixed-signal IC 
 | 1      | Bandgap Reference                 |
 | 2      | 50GHz Medium Power Amplifier      |
 | 3      | 8-bit SAR ADC                     |
+| 4      | [StrongARM Latch Design](modules/module_4_strong_arm_latch/README.md) – 1 or 2 days |
 
-Each module builds on the last, combining theory with practical exercises.
+Modules 0–3 form the original course sequence, combining theory with practical exercises. **Module 4 is a standalone design module that can be delivered in 1 or 2 days depending on the audience's level:** one day for experienced participants, or two days for participants who need more guided practice with the design flow. It requires the tool setup from Module 0 and basic electronics knowledge.
+
+## Getting the StrongARM Latch Design
+
+The actual design is included in `modules/module_4_strong_arm_latch/IHP__CMP7345` as a Git submodule of [IHP__CMP7345](https://github.com/KrzysztofHerman/IHP__CMP7345).
+
+From an existing academy checkout, run:
+
+```bash
+git submodule update --init --recursive
+```
+
+For a new checkout, use:
+
+```bash
+git clone --recurse-submodules https://github.com/KrzysztofHerman/IHP-AnalogAcademy.git
+```
+
+Follow the [Module 4 setup and schedule](modules/module_4_strong_arm_latch/README.md) before opening its schematics. Its six numbered Markdown parts contain the circuit explanations, simulation listings, layout figures, verification steps, and finishing exercises.
